@@ -1,0 +1,119 @@
+-- ========================================================================
+-- EITASM AUTOMATED 700-EMPLOYEE DATA SEEDING SCRIPT
+-- Course: 420-921-VA Database
+-- Target: SQL Server / SSMS 22 Localhost Environment
+-- Description: Programmatically generates 700 unique, valid employees
+--              satisfying 3NF constraints and clearance limits.
+-- ========================================================================
+
+USE [EITASM_DB];
+GO
+
+-- Set transaction isolation and turn off row counting for optimal execution speed
+SET NOCOUNT ON;
+
+PRINT 'Initializing automated seeding sequence for 700 employee records...';
+
+BEGIN TRANSACTION;
+BEGIN TRY
+
+    -- 1. DECLARE TEMPORARY ARRAYS FOR REALISTIC NAME GENERATION
+    DECLARE @FirstNames TABLE (ID INT IDENTITY(1,1), Name VARCHAR(50));
+    DECLARE @LastNames TABLE (ID INT IDENTITY(1,1), Name VARCHAR(50));
+
+    INSERT INTO @FirstNames (Name) VALUES 
+    ('Liam'), ('Olivia'), ('Noah'), ('Emma'), ('Oliver'), ('Ava'), ('Elijah'), ('Charlotte'), 
+    ('William'), ('Sophia'), ('James'), ('Amelia'), ('Benjamin'), ('Isabella'), ('Lucas'), ('Mia'), 
+    ('Henry'), ('Evelyn'), ('Alexander'), ('Harper'), ('Mason'), ('Camila'), ('Michael'), ('Gianna'), 
+    ('Ethan'), ('Abigail'), ('Daniel'), ('Luna'), ('Jacob'), ('Ella'), ('Logan'), ('Elizabeth');
+
+    INSERT INTO @LastNames (Name) VALUES 
+    ('Smith'), ('Johnson'), ('Williams'), ('Brown'), ('Jones'), ('Garcia'), ('Miller'), ('Davis'), 
+    ('Rodriguez'), ('Martinez'), ('Hernandez'), ('Lopez'), ('Gonzalez'), ('Wilson'), ('Anderson'), ('Thomas'), 
+    ('Taylor'), ('Moore'), ('Jackson'), ('Martin'), ('Lee'), ('Perez'), ('Thompson'), ('White'), 
+    ('Harris'), ('Sanchez'), ('Clark'), ('Ramirez'), ('Lewis'), ('Robinson'), ('Walker'), ('Young');
+
+    -- Count elements to handle scaling math bounds
+    DECLARE @MaxFirstNames INT = (SELECT COUNT(*) FROM @FirstNames);
+    DECLARE @MaxLastNames INT = (SELECT COUNT(*) FROM @LastNames);
+
+    -- 2. ACQUIRE DEPLOYED DEPARTMENT KEYS FROM THE LOOKUP STRUCTURE
+    DECLARE @DeptHR INT = (SELECT TOP 1 DepartmentID FROM HR.Departments WHERE DeptName = 'Human Resources');
+    DECLARE @DeptIT INT = (SELECT TOP 1 DepartmentID FROM HR.Departments WHERE DeptName = 'Information Technology');
+    DECLARE @DeptSEC INT = (SELECT TOP 1 DepartmentID FROM HR.Departments WHERE DeptName = 'Cyber Security');
+    DECLARE @DeptFIN INT = (SELECT TOP 1 DepartmentID FROM HR.Departments WHERE DeptName = 'Finance');
+
+    -- Fallback safety mapping if explicit lookups aren't populated matching names
+    IF @DeptHR IS NULL SET @DeptHR = 1;
+    IF @DeptIT IS NULL SET @DeptIT = 2;
+    IF @DeptSEC IS NULL SET @DeptSEC = 3;
+    IF @DeptFIN IS NULL SET @DeptFIN = 4;
+
+    -- 3. ITERATIVE GENERATION LOOP (1 to 700)
+    DECLARE @Counter INT = 1;
+    DECLARE @TargetRecords INT = 700;
+
+    DECLARE @CurrentFirst VARCHAR(50);
+    DECLARE @CurrentLast VARCHAR(50);
+    DECLARE @AssignedDept INT;
+    DECLARE @AssignedClearance TINYINT;
+    DECLARE @GeneratedEmail VARCHAR(255);
+
+    WHILE @Counter <= @TargetRecords
+    BEGIN
+        -- Matrix-style selection math to mix-and-match index loops ensuring names remain dynamic
+        DECLARE @FirstLookupID INT = ((@Counter - 1) % @MaxFirstNames) + 1;
+        DECLARE @LastLookupID INT = (((@Counter - 1) / @MaxFirstNames) % @MaxLastNames) + 1;
+
+        SELECT @CurrentFirst = Name FROM @FirstNames WHERE ID = @FirstLookupID;
+        SELECT @CurrentLast = Name FROM @LastNames WHERE ID = @LastLookupID;
+
+        -- Distribute departments systematically across records
+        SET @AssignedDept = CASE (@Counter % 4)
+            WHEN 0 THEN @DeptHR
+            WHEN 1 THEN @DeptIT
+            WHEN 2 THEN @DeptSEC
+            ELSE @DeptFIN
+        END;
+
+        -- Formulate dynamic security clearances satisfying CHECK constraints (Levels 1 - 5)
+        -- Gives general employees lower levels, while distributing high tiers selectively
+        SET @AssignedClearance = CASE 
+            WHEN @AssignedDept = @DeptSEC THEN ( (@Counter % 3) + 3 ) -- Security staff get Levels 3, 4, 5
+            WHEN @AssignedDept = @DeptIT  THEN ( (@Counter % 3) + 2 ) -- IT staff get Levels 2, 3, 4
+            ELSE ( (@Counter % 2) + 1 )                               -- General Staff get Levels 1, 2
+        END;
+
+        -- Structure a guaranteed unique email format appending counter indexes
+        SET @GeneratedEmail = LOWER(@CurrentFirst + '.' + @CurrentLast + CAST(@Counter AS VARCHAR) + '@vaniercollege.qc.ca');
+
+        -- Direct table tier insertion
+        INSERT INTO HR.Employees (FirstName, LastName, DepartmentID, Email, ClearanceLevel)
+        VALUES (@CurrentFirst, @CurrentLast, @AssignedDept, @GeneratedEmail, @AssignedClearance);
+
+        SET @Counter = @Counter + 1;
+    END
+
+    -- 4. LOGICAL DEPLOYMENT OF SPECIFIC MANAGER ROLE ASSIGNMENTS
+    -- Satisfies circular logic by establishing verified staff to head each core department
+    UPDATE HR.Departments SET ManagerID = (SELECT TOP 1 EmployeeID FROM HR.Employees WHERE DepartmentID = @DeptHR ORDER BY EmployeeID ASC) WHERE DepartmentID = @DeptHR;
+    UPDATE HR.Departments SET ManagerID = (SELECT TOP 1 EmployeeID FROM HR.Employees WHERE DepartmentID = @DeptIT ORDER BY EmployeeID ASC) WHERE DepartmentID = @DeptIT;
+    UPDATE HR.Departments SET ManagerID = (SELECT TOP 1 EmployeeID FROM HR.Employees WHERE DepartmentID = @DeptSEC ORDER BY EmployeeID ASC) WHERE DepartmentID = @DeptSEC;
+    UPDATE HR.Departments SET ManagerID = (SELECT TOP 1 EmployeeID FROM HR.Employees WHERE DepartmentID = @DeptFIN ORDER BY EmployeeID ASC) WHERE DepartmentID = @DeptFIN;
+
+    COMMIT TRANSACTION;
+    PRINT 'SUCCESS: 700 Unique Employee profiles successfully generated and committed.';
+
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION;
+    PRINT 'ERROR: Transaction execution halted. Seeding changes rolled back.';
+    THROW;
+END CATCH;
+GO
+
+-- 5. VERIFICATION AUDIT RUN
+SELECT 
+    (SELECT COUNT(*) FROM HR.Employees) AS TotalInsertedEmployees,
+    (SELECT COUNT(*) FROM HR.Departments WHERE ManagerID IS NOT NULL) AS ConfiguredDepartmentManagers;
+GO
