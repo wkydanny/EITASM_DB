@@ -1,0 +1,6 @@
+gui\DashboardApplication.class
+dao\SecurityDAO.class
+module-info.class
+dao\EmployeeDAO.class
+database\AzureDatabaseConnection.class
+dao\AssetDAO.class

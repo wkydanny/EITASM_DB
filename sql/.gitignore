@@ -1,0 +1,8 @@
+# Ignore local SQL Server DB files if saved in workspace
+*.mdf
+*.ldf
+
+# Ignore local configuration files or connection strings containing passwords
+*.local
+appsettings.json
+.env

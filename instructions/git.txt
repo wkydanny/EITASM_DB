@@ -1,0 +1,8 @@
+git remote add origin https://github.com/wkydanny/EITASM_DB.git
+
+
+
+git add .
+git commit -m ""
+git branch -M main
+git push -u origin main

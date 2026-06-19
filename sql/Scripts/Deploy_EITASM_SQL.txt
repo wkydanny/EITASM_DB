@@ -1,0 +1,116 @@
+-- ========================================================================
+-- EITASM DATABASE COMPREHENSIVE BUILD SCRIPT (FOR LOCALHOST)
+-- ========================================================================
+
+USE master;
+GO
+
+IF EXISTS (SELECT name FROM sys.databases WHERE name = N'EITASM_DB')
+BEGIN
+    ALTER DATABASE [EITASM_DB] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE [EITASM_DB];
+END
+GO
+
+CREATE DATABASE [EITASM_DB];
+GO
+
+USE [EITASM_DB];
+GO
+
+-- CREATE SCHEMAS
+CREATE SCHEMA HR;
+GO
+CREATE SCHEMA IT;
+GO
+CREATE SCHEMA SEC;
+GO
+
+-- STEP 1: REFERENCE TABLES
+CREATE TABLE SEC.SeverityLevels (
+    SeverityLevelID INT IDENTITY(1,1) PRIMARY KEY,
+    SeverityName VARCHAR(20) NOT NULL UNIQUE
+);
+
+CREATE TABLE IT.AssetTypes (
+    AssetTypeID INT IDENTITY(1,1) PRIMARY KEY,
+    TypeName VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE HR.Departments (
+    DepartmentID INT IDENTITY(1,1) PRIMARY KEY,
+    DeptName VARCHAR(100) NOT NULL UNIQUE,
+    ManagerID INT NULL
+);
+GO
+
+-- STEP 2: RE-ENGINEERED EMPLOYEES TABLE WITH REAL-WORLD PII & CONTACT BLOCKS
+CREATE TABLE HR.Employees (
+    EmployeeID INT IDENTITY(1,1) PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    PhoneNumber VARCHAR(20) NULL,
+    CivilNumber VARCHAR(20) NULL,
+    StreetName VARCHAR(150) NULL,
+    City VARCHAR(100) NULL,
+    ProvinceState VARCHAR(50) NULL,
+    Country VARCHAR(50) NULL,
+    PostalZipCode VARCHAR(15) NULL,
+    SocialInsuranceNumber CHAR(9) NULL,
+    DateOfBirth DATE NULL,
+    UserSecurityLevel INT DEFAULT 1 NOT NULL,
+    DepartmentID INT NULL,
+    CONSTRAINT FK_Employees_Departments FOREIGN KEY (DepartmentID) REFERENCES HR.Departments(DepartmentID) ON DELETE SET NULL
+);
+GO
+
+-- STEP 3: ACCOUNT CREDENTIALS POLICY CONTROL TABLE (INDUSTRY BEST PRACTICE)
+CREATE TABLE SEC.UserCredentials (
+    CredentialID INT IDENTITY(1,1) PRIMARY KEY,
+    EmployeeID INT NOT NULL,
+    Username VARCHAR(50) NOT NULL UNIQUE,
+    PasswordHash VARCHAR(255) NOT NULL, -- To store salted hashes (e.g. Bcrypt)
+    ForceFirstTimeLogin BIT DEFAULT 1 NOT NULL, -- 1 = Reset required on next access
+    PasswordExpirationDate DATETIME DEFAULT DATEADD(day, 90, GETDATE()) NOT NULL, -- 90 Day Expiry 
+    AccountLocked BIT DEFAULT 0 NOT NULL,
+    CONSTRAINT FK_UserCredentials_Employees FOREIGN KEY (EmployeeID) REFERENCES HR.Employees(EmployeeID) ON DELETE CASCADE
+);
+GO
+
+-- STEP 4: HARDWARE ASSETS TABLE
+CREATE TABLE IT.HardwareAssets (
+    AssetID INT IDENTITY(1,1) PRIMARY KEY,
+    HostName VARCHAR(100) NOT NULL UNIQUE,
+    AssetTypeID INT NULL,
+    PurchaseDate DATE DEFAULT GETDATE(),
+    CurrentStatus VARCHAR(20) DEFAULT 'Available',
+    AssignedToEmployeeID INT NULL,
+    SecurityRequirement INT DEFAULT 1,
+    CONSTRAINT FK_HardwareAssets_AssetTypes FOREIGN KEY (AssetTypeID) REFERENCES IT.AssetTypes(AssetTypeID) ON DELETE SET NULL,
+    CONSTRAINT FK_HardwareAssets_Employees FOREIGN KEY (AssignedToEmployeeID) REFERENCES HR.Employees(EmployeeID) ON DELETE SET NULL
+);
+GO
+
+-- STEP 5: SECURITY INCIDENTS MANAGEMENT TABLE
+CREATE TABLE SEC.SecurityIncidents (
+    IncidentID INT IDENTITY(1,1) PRIMARY KEY,
+    TargetAssetID INT NULL,
+    SeverityLevelID INT NULL,
+    Description VARCHAR(MAX) NOT NULL,
+    ResolutionStatus VARCHAR(20) DEFAULT 'Open',
+    DateReported DATETIME DEFAULT GETDATE(),
+    AssignedToEmployeeID INT NULL,
+    CONSTRAINT FK_SecurityIncidents_HardwareAssets FOREIGN KEY (TargetAssetID) REFERENCES IT.HardwareAssets(AssetID) ON DELETE SET NULL,
+    CONSTRAINT FK_SecurityIncidents_SeverityLevels FOREIGN KEY (SeverityLevelID) REFERENCES SEC.SeverityLevels(SeverityLevelID) ON DELETE SET NULL,
+    CONSTRAINT FK_SecurityIncidents_Employees FOREIGN KEY (AssignedToEmployeeID) REFERENCES HR.Employees(EmployeeID) ON DELETE SET NULL
+);
+GO
+
+-- STEP 6: CORE INFRASTRUCTURE DATA SEEDING
+INSERT INTO SEC.SeverityLevels (SeverityName) VALUES ('Low'), ('Medium'), ('High'), ('Critical');
+INSERT INTO IT.AssetTypes (TypeName) VALUES ('Workstation'), ('Server'), ('Mobile Device'), ('Network Equipment');
+INSERT INTO HR.Departments (DeptName) VALUES ('Human Resources'), ('Information Technology'), ('Cyber Security'), ('Finance');
+GO
+
+SELECT 'Database successfully built using clean real-world industry relational profiles.' AS StatusMessage;

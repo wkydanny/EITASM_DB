@@ -1,0 +1,148 @@
+-- ========================================================================
+-- EITASM AUTOMATED 700-EMPLOYEE ENTERPRISE DATA SEEDING SCRIPT
+-- Target: SQL Server / SSMS 22 Localhost Environment (Windows 11)
+-- Description: Programmatically generates 700 unique, valid employees
+--              with full PII, Addresses, and Login Credentials.
+-- ========================================================================
+
+USE [EITASM_DB];
+GO
+
+SET NOCOUNT ON;
+
+PRINT 'Initializing automated seeding sequence for 700 enterprise records...';
+
+BEGIN TRANSACTION;
+BEGIN TRY
+
+    -- 1. DECLARE TEMPORARY ARRAYS FOR NAME & LOCATION GENERATION
+    DECLARE @FirstNames TABLE (ID INT IDENTITY(1,1), Name VARCHAR(50));
+    DECLARE @LastNames TABLE (ID INT IDENTITY(1,1), Name VARCHAR(50));
+    DECLARE @Streets TABLE (ID INT IDENTITY(1,1), Name VARCHAR(100));
+
+    INSERT INTO @FirstNames (Name) VALUES 
+    ('Liam'), ('Olivia'), ('Noah'), ('Emma'), ('Oliver'), ('Ava'), ('Elijah'), ('Charlotte'), 
+    ('William'), ('Sophia'), ('James'), ('Amelia'), ('Benjamin'), ('Isabella'), ('Lucas'), ('Mia'), 
+    ('Henry'), ('Evelyn'), ('Alexander'), ('Harper'), ('Mason'), ('Camila'), ('Michael'), ('Gianna'), 
+    ('Ethan'), ('Abigail'), ('Daniel'), ('Luna'), ('Jacob'), ('Ella'), ('Logan'), ('Elizabeth');
+
+    INSERT INTO @LastNames (Name) VALUES 
+    ('Smith'), ('Johnson'), ('Williams'), ('Brown'), ('Jones'), ('Garcia'), ('Miller'), ('Davis'), 
+    ('Rodriguez'), ('Martinez'), ('Hernandez'), ('Lopez'), ('Gonzalez'), ('Wilson'), ('Anderson'), ('Thomas'), 
+    ('Taylor'), ('Moore'), ('Jackson'), ('Martin'), ('Lee'), ('Perez'), ('Thompson'), ('White'), 
+    ('Harris'), ('Sanchez'), ('Clark'), ('Ramirez'), ('Lewis'), ('Robinson'), ('Walker'), ('Young');
+
+    INSERT INTO @Streets (Name) VALUES 
+    ('Sainte-Catherine St'), ('Sherbrooke St W'), ('Saint-Denis St'), ('Peel St'), ('De Maisonneuve Blvd'), 
+    ('Saint-Laurent Blvd'), ('Atwater Ave'), ('Guy St'), ('Bleury St'), ('René-Lévesque Blvd');
+
+    DECLARE @MaxFirstNames INT = (SELECT COUNT(*) FROM @FirstNames);
+    DECLARE @MaxLastNames INT = (SELECT COUNT(*) FROM @LastNames);
+    DECLARE @MaxStreets INT = (SELECT COUNT(*) FROM @Streets);
+
+    -- 2. ACQUIRE DEPLOYED DEPARTMENT KEYS
+    DECLARE @DeptHR INT = (SELECT TOP 1 DepartmentID FROM HR.Departments WHERE DeptName = 'Human Resources');
+    DECLARE @DeptIT INT = (SELECT TOP 1 DepartmentID FROM HR.Departments WHERE DeptName = 'Information Technology');
+    DECLARE @DeptSEC INT = (SELECT TOP 1 DepartmentID FROM HR.Departments WHERE DeptName = 'Cyber Security');
+    DECLARE @DeptFIN INT = (SELECT TOP 1 DepartmentID FROM HR.Departments WHERE DeptName = 'Finance');
+
+    -- 3. ITERATIVE GENERATION LOOP (1 to 700)
+    DECLARE @Counter INT = 1;
+    DECLARE @TargetRecords INT = 700;
+
+    -- Dynamic parameter tracking references
+    DECLARE @CurrentFirst VARCHAR(50);
+    DECLARE @CurrentLast VARCHAR(50);
+    DECLARE @AssignedDept INT;
+    DECLARE @GeneratedEmail VARCHAR(255);
+    
+    -- New Enterprise Mock Variables
+    DECLARE @MockPhone VARCHAR(20);
+    DECLARE @MockCivil VARCHAR(20);
+    DECLARE @MockStreet VARCHAR(150);
+    DECLARE @MockSIN CHAR(9);
+    DECLARE @MockDOB DATE;
+    DECLARE @MockUser VARCHAR(50);
+    DECLARE @MockHash VARCHAR(255) = 'Password1234'; -- Standard Bcrypt template mock
+
+    WHILE @Counter <= @TargetRecords
+    BEGIN
+        -- Matrix-style dynamic mixing math 
+        DECLARE @FirstLookupID INT = ((@Counter - 1) % @MaxFirstNames) + 1;
+        DECLARE @LastLookupID INT = (((@Counter - 1) / @MaxFirstNames) % @MaxLastNames) + 1;
+        DECLARE @StreetLookupID INT = ((@Counter - 1) % @MaxStreets) + 1;
+
+        SELECT @CurrentFirst = Name FROM @FirstNames WHERE ID = @FirstLookupID;
+        SELECT @CurrentLast = Name FROM @LastNames WHERE ID = @LastLookupID;
+        SELECT @MockStreet = Name FROM @Streets WHERE ID = @StreetLookupID;
+
+        -- Distribute departments systematically
+        SET @AssignedDept = CASE (@Counter % 4)
+            WHEN 0 THEN @DeptHR
+            WHEN 1 THEN @DeptIT
+            WHEN 2 THEN @DeptSEC
+            ELSE @DeptFIN
+        END;
+
+        -- Construct parameters matching real-world properties
+        SET @GeneratedEmail = LOWER(@CurrentFirst + '.' + @CurrentLast + CAST(@Counter AS VARCHAR) + '@vaniercollege.qc.ca');
+        SET @MockUser = LOWER(LEFT(@CurrentFirst, 1) + @CurrentLast + CAST(@Counter AS VARCHAR));
+        SET @MockPhone = '514-555-' + RIGHT('0000' + CAST(@Counter AS VARCHAR), 4);
+        SET @MockCivil = CAST((100 + @Counter * 3) AS VARCHAR);
+        SET @MockSIN = RIGHT('000000000' + CAST(100000000 + @Counter * 1234 AS VARCHAR), 9);
+        
+        -- Distribute realistic birthdays falling between 1970 and 2002
+        SET @MockDOB = DATEADD(year, - (22 + (@Counter % 30)), '2026-01-01');
+
+        -- 3A. POPULATE EMPLOYEE DEMOGRAPHIC AND PII MATRIX
+        -- UserSecurityLevel initialized explicitly to lowest tier (1)
+        INSERT INTO HR.Employees (
+            FirstName, LastName, Email, PhoneNumber, CivilNumber, StreetName, 
+            City, ProvinceState, Country, PostalZipCode, SocialInsuranceNumber, 
+            DateOfBirth, UserSecurityLevel, DepartmentID
+        )
+        VALUES (
+            @CurrentFirst, @CurrentLast, @GeneratedEmail, @MockPhone, @MockCivil, @MockStreet,
+            'Montreal', 'QC', 'Canada', 'H4L 3X9', @MockSIN, 
+            @MockDOB, 1, @AssignedDept
+        );
+
+        -- Grab generated record context scope ID to link authentication entity cleanly
+        DECLARE @NewEmployeeID INT = SCOPE_IDENTITY();
+
+        -- 3B. POPULATE MATCHING SECURITY CREDENTIAL ENTITY
+        -- Password Expiration strictly forced across all entries to December 31, 2027
+        INSERT INTO SEC.UserCredentials (
+            EmployeeID, Username, PasswordHash, ForceFirstTimeLogin, PasswordExpirationDate, AccountLocked
+        )
+        VALUES (
+            @NewEmployeeID, @MockUser, @MockHash, 1, '2027-12-31 23:59:59', 0
+        );
+
+        SET @Counter = @Counter + 1;
+    END
+
+    -- 4. ESTABLISH CIRCULAR MANAGEMENT KEYS
+    UPDATE HR.Departments SET ManagerID = (SELECT TOP 1 EmployeeID FROM HR.Employees WHERE DepartmentID = @DeptHR ORDER BY EmployeeID ASC) WHERE DepartmentID = @DeptHR;
+    UPDATE HR.Departments SET ManagerID = (SELECT TOP 1 EmployeeID FROM HR.Employees WHERE DepartmentID = @DeptIT ORDER BY EmployeeID ASC) WHERE DepartmentID = @DeptIT;
+    UPDATE HR.Departments SET ManagerID = (SELECT TOP 1 EmployeeID FROM HR.Employees WHERE DepartmentID = @DeptSEC ORDER BY EmployeeID ASC) WHERE DepartmentID = @DeptSEC;
+    UPDATE HR.Departments SET ManagerID = (SELECT TOP 1 EmployeeID FROM HR.Employees WHERE DepartmentID = @DeptFIN ORDER BY EmployeeID ASC) WHERE DepartmentID = @DeptFIN;
+
+    COMMIT TRANSACTION;
+    PRINT 'SUCCESS: 700 Enterprise Profiles with full PII, Addresses, and Credentials generated completely.';
+
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION;
+    PRINT 'ERROR: Seeding crashed. Structural integrity rolled back.';
+    THROW;
+END CATCH;
+GO
+
+-- 5. VERIFICATION AUDIT RUN
+SELECT 
+    (SELECT COUNT(*) FROM HR.Employees) AS TotalEmployeesSeeded,
+    (SELECT COUNT(*) FROM SEC.UserCredentials) AS TotalCredentialsGenerated,
+    (SELECT COUNT(*) FROM HR.Employees WHERE UserSecurityLevel = 1) AS EmployeesAtLowestSecurityLevel,
+    (SELECT DISTINCT TOP 1 PasswordExpirationDate FROM SEC.UserCredentials) AS StandardizedExpirationTarget;
+GO

@@ -1,0 +1,34 @@
+SELECT 
+    s.name AS SchemaName,
+    t.name AS TableName,
+    p.rows AS TotalRows
+FROM 
+    sys.tables t
+INNER JOIN 
+    sys.schemas s ON t.schema_id = s.schema_id
+INNER JOIN 
+    sys.partitions p ON t.object_id = p.object_id
+WHERE 
+    p.index_id IN (0, 1) -- 0: Heap, 1: Clustered Index
+ORDER BY 
+    SchemaName, TableName;
+
+
+SELECT 
+    obj.name AS ConstraintName,
+    sch_parent.name + '.' + tab_parent.name AS ParentTable,
+    col_parent.name AS ParentColumn,
+    sch_ref.name + '.' + tab_ref.name AS ReferencedTable,
+    col_ref.name AS ReferencedColumn
+FROM 
+    sys.foreign_key_columns fkc
+INNER JOIN sys.objects obj ON fkc.constraint_object_id = obj.object_id
+INNER JOIN sys.tables tab_parent ON fkc.parent_object_id = tab_parent.object_id
+INNER JOIN sys.schemas sch_parent ON tab_parent.schema_id = sch_parent.schema_id
+INNER JOIN sys.columns col_parent ON fkc.parent_object_id = col_parent.object_id AND fkc.parent_column_id = col_parent.column_id
+INNER JOIN sys.tables tab_ref ON fkc.referenced_object_id = tab_ref.object_id
+INNER JOIN sys.schemas sch_ref ON tab_ref.schema_id = sch_ref.schema_id
+INNER JOIN sys.columns col_ref ON fkc.referenced_object_id = col_ref.object_id AND fkc.referenced_column_id = col_ref.column_id;
+
+
+EXEC sp_spaceused;
