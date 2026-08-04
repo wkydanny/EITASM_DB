@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>EITASM | Employees</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+
+                <img
+                    src="images/logo.svg"
+                    class="logo-image"
+                    alt="EITASM Logo"
+                >
+
+                <div>
+                    <h1 class="logo-title">EITASM</h1>
+                    <p class="logo-subtitle">Management System</p>
+                </div>
+
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a href="index.html" class="nav-item">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="employees.html" class="nav-item active">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Employees</span>
+                </a>
+
+                <a href="departments.html" class="nav-item">
+                    <i class="bi bi-building"></i>
+                    <span>Departments</span>
+                </a>
+
+                <a href="assets.html" class="nav-item">
+                    <i class="bi bi-pc-display"></i>
+                    <span>Hardware Assets</span>
+                </a>
+
+                <a href="licenses.html" class="nav-item">
+                    <i class="bi bi-key-fill"></i>
+                    <span>Software Licenses</span>
+                </a>
+
+                <a href="incidents.html" class="nav-item">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span>Security Incidents</span>
+                </a>
+
+                <a href="audit-logs.html" class="nav-item">
+                    <i class="bi bi-clipboard-data-fill"></i>
+                    <span>Audit Logs</span>
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+
+                <a href="profile.html" class="nav-item">
+                    <i class="bi bi-person-circle"></i>
+                    <span>My Profile</span>
+                </a>
+
+                <a href="login.html" class="nav-item">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Logout</span>
+                </a>
+
+            </div>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Top Navbar -->
+            <header class="top-navbar">
+
+                <button
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    type="button"
+                    aria-label="Open menu"
+                >
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <div class="search-box">
+
+                    <i class="bi bi-search"></i>
+
+                    <input
+                        type="search"
+                        placeholder="Search employees..."
+                    >
+
+                </div>
+
+                <div class="navbar-actions">
+
+                    <button
+                        class="notification-button"
+                        type="button"
+                        aria-label="Notifications"
+                    >
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+
+                    <div class="user-profile">
+
+                        <div class="user-avatar">
+                            DO
+                        </div>
+
+                        <div class="user-information">
+                            <span class="user-name">Danny Ornelas</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+
+                        <i class="bi bi-chevron-down"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- Employees Content -->
+            <section class="dashboard-content">
+
+                <div class="page-heading">
+
+                    <div>
+                        <p class="page-eyebrow">HUMAN RESOURCES</p>
+                        <h2>Employees</h2>
+
+                        <p class="page-description">
+                            Manage employee information, departments, positions and clearance levels.
+                        </p>
+                    </div>
+
+                    <button
+                        class="btn btn-primary action-button"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#employeeModal"
+                    >
+                        <i class="bi bi-person-plus-fill"></i>
+                        Add Employee
+                    </button>
+
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="row g-4 mb-4">
+
+                    <div class="col-12 col-md-4">
+
+                        <article class="summary-card">
+
+                            <div class="summary-icon employees-icon">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+
+                            <div class="summary-content">
+                                <p>Total Employees</p>
+                                <h3>248</h3>
+                                <span>Across all departments</span>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <div class="col-12 col-md-4">
+
+                        <article class="summary-card">
+
+                            <div class="summary-icon licenses-icon">
+                                <i class="bi bi-person-check-fill"></i>
+                            </div>
+
+                            <div class="summary-content">
+                                <p>Active Employees</p>
+                                <h3>239</h3>
+                                <span class="positive-change">96% active</span>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <div class="col-12 col-md-4">
+
+                        <article class="summary-card">
+
+                            <div class="summary-icon incidents-icon">
+                                <i class="bi bi-person-x-fill"></i>
+                            </div>
+
+                            <div class="summary-content">
+                                <p>Inactive Employees</p>
+                                <h3>9</h3>
+                                <span>Requires review</span>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+                <!-- Employees Table -->
+                <article class="content-card">
+
+                    <div class="content-card-header">
+
+                        <div>
+                            <h3>Employee Directory</h3>
+                            <p>View and manage all employees registered in the system.</p>
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-funnel"></i>
+                                Filter
+                            </button>
+
+                            <button class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-download"></i>
+                                Export
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table class="table dashboard-table align-middle">
+
+                            <thead>
+
+                        <tr>
+                            <th>Employee</th>
+                            <th>Department</th>
+                            <th>Job Title</th>
+                            <th>Email</th>
+                            <th>Hire Date</th>
+                            <th>Clearance</th>
+                            <th>Status</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <img
+                                                src="images/employees/N001_John_Doe.jpg"
+                                                class="employee-photo"
+                                                alt="John Doe"
+                                                loading="lazy"
+                                            >
+                                            <div class="employee-details">
+                                                <span class="employee-name">John Doe</span>
+                                                <span class="employee-id">EMP-1001</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Information Technology</td>
+                                    <td>System Administrator</td>
+                                    <td><a href="mailto:john.doe@eitasm.com" class="employee-email">john.doe@eitasm.com</a></td>
+                                    <td>Jan 15, 2022</td>
+                                    <td><span class="badge clearance-high">Level 4</span></td>
+                                    <td><span class="status-indicator status-resolved">Active</span></td>
+                                    <td class="text-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Actions for John Doe">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-2"></i>Edit</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <img
+                                                src="images/employees/N002_Emma_Johnson.jpg"
+                                                class="employee-photo"
+                                                alt="Emma Johnson"
+                                                loading="lazy"
+                                            >
+                                            <div class="employee-details">
+                                                <span class="employee-name">Emma Johnson</span>
+                                                <span class="employee-id">EMP-1002</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Human Resources</td>
+                                    <td>HR Manager</td>
+                                    <td><a href="mailto:emma.johnson@eitasm.com" class="employee-email">emma.johnson@eitasm.com</a></td>
+                                    <td>Mar 08, 2021</td>
+                                    <td><span class="badge clearance-medium">Level 3</span></td>
+                                    <td><span class="status-indicator status-resolved">Active</span></td>
+                                    <td class="text-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Actions for Emma Johnson">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-2"></i>Edit</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <img
+                                                src="images/employees/N003_Michael_Brown.jpg"
+                                                class="employee-photo"
+                                                alt="Michael Brown"
+                                                loading="lazy"
+                                            >
+                                            <div class="employee-details">
+                                                <span class="employee-name">Michael Brown</span>
+                                                <span class="employee-id">EMP-1003</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Security Operations</td>
+                                    <td>Security Analyst</td>
+                                    <td><a href="mailto:michael.brown@eitasm.com" class="employee-email">michael.brown@eitasm.com</a></td>
+                                    <td>Sep 19, 2023</td>
+                                    <td><span class="badge clearance-critical">Level 5</span></td>
+                                    <td><span class="status-indicator status-resolved">Active</span></td>
+                                    <td class="text-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Actions for Michael Brown">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-2"></i>Edit</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <img
+                                                src="images/employees/N004_Sophia_Davis.jpg"
+                                                class="employee-photo"
+                                                alt="Sophia Davis"
+                                                loading="lazy"
+                                            >
+                                            <div class="employee-details">
+                                                <span class="employee-name">Sophia Davis</span>
+                                                <span class="employee-id">EMP-1004</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Finance</td>
+                                    <td>Financial Analyst</td>
+                                    <td><a href="mailto:sophia.davis@eitasm.com" class="employee-email">sophia.davis@eitasm.com</a></td>
+                                    <td>Jun 27, 2020</td>
+                                    <td><span class="badge clearance-low">Level 2</span></td>
+                                    <td><span class="status-indicator status-investigating">On Leave</span></td>
+                                    <td class="text-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Actions for Sophia Davis">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-2"></i>Edit</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <img
+                                                src="images/employees/N005_James_Wilson.jpg"
+                                                class="employee-photo"
+                                                alt="James Wilson"
+                                                loading="lazy"
+                                            >
+                                            <div class="employee-details">
+                                                <span class="employee-name">James Wilson</span>
+                                                <span class="employee-id">EMP-1005</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Information Technology</td>
+                                    <td>Network Engineer</td>
+                                    <td><a href="mailto:james.wilson@eitasm.com" class="employee-email">james.wilson@eitasm.com</a></td>
+                                    <td>Nov 03, 2022</td>
+                                    <td><span class="badge clearance-high">Level 4</span></td>
+                                    <td><span class="status-indicator status-resolved">Active</span></td>
+                                    <td class="text-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Actions for James Wilson">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-2"></i>Edit</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <img
+                                                src="images/employees/N006_Olivia_Martinez.jpg"
+                                                class="employee-photo"
+                                                alt="Olivia Martinez"
+                                                loading="lazy"
+                                            >
+                                            <div class="employee-details">
+                                                <span class="employee-name">Olivia Martinez</span>
+                                                <span class="employee-id">EMP-1006</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Security Operations</td>
+                                    <td>Compliance Specialist</td>
+                                    <td><a href="mailto:olivia.martinez@eitasm.com" class="employee-email">olivia.martinez@eitasm.com</a></td>
+                                    <td>Feb 12, 2024</td>
+                                    <td><span class="badge clearance-medium">Level 3</span></td>
+                                    <td><span class="status-indicator status-resolved">Active</span></td>
+                                    <td class="text-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Actions for Olivia Martinez">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-2"></i>Edit</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <img
+                                                src="images/employees/N007_Daniel_Anderson.jpg"
+                                                class="employee-photo"
+                                                alt="Daniel Anderson"
+                                                loading="lazy"
+                                            >
+                                            <div class="employee-details">
+                                                <span class="employee-name">Daniel Anderson</span>
+                                                <span class="employee-id">EMP-1007</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Operations</td>
+                                    <td>Asset Coordinator</td>
+                                    <td><a href="mailto:daniel.anderson@eitasm.com" class="employee-email">daniel.anderson@eitasm.com</a></td>
+                                    <td>Aug 21, 2021</td>
+                                    <td><span class="badge clearance-low">Level 2</span></td>
+                                    <td><span class="status-indicator status-resolved">Active</span></td>
+                                    <td class="text-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Actions for Daniel Anderson">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-2"></i>Edit</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <img
+                                                src="images/employees/N008_Ava_Thomas.jpg"
+                                                class="employee-photo"
+                                                alt="Ava Thomas"
+                                                loading="lazy"
+                                            >
+                                            <div class="employee-details">
+                                                <span class="employee-name">Ava Thomas</span>
+                                                <span class="employee-id">EMP-1008</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Human Resources</td>
+                                    <td>Recruitment Specialist</td>
+                                    <td><a href="mailto:ava.thomas@eitasm.com" class="employee-email">ava.thomas@eitasm.com</a></td>
+                                    <td>Apr 10, 2023</td>
+                                    <td><span class="badge clearance-low">Level 2</span></td>
+                                    <td><span class="status-indicator status-resolved">Active</span></td>
+                                    <td class="text-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Actions for Ava Thomas">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-2"></i>Edit</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <img
+                                                src="images/employees/N009_William_Taylor.jpg"
+                                                class="employee-photo"
+                                                alt="William Taylor"
+                                                loading="lazy"
+                                            >
+                                            <div class="employee-details">
+                                                <span class="employee-name">William Taylor</span>
+                                                <span class="employee-id">EMP-1009</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Information Technology</td>
+                                    <td>Database Administrator</td>
+                                    <td><a href="mailto:william.taylor@eitasm.com" class="employee-email">william.taylor@eitasm.com</a></td>
+                                    <td>Dec 05, 2019</td>
+                                    <td><span class="badge clearance-high">Level 4</span></td>
+                                    <td><span class="status-indicator status-resolved">Active</span></td>
+                                    <td class="text-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Actions for William Taylor">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-2"></i>Edit</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <img
+                                                src="images/employees/N010_Mia_Moore.jpg"
+                                                class="employee-photo"
+                                                alt="Mia Moore"
+                                                loading="lazy"
+                                            >
+                                            <div class="employee-details">
+                                                <span class="employee-name">Mia Moore</span>
+                                                <span class="employee-id">EMP-1010</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Finance</td>
+                                    <td>Finance Manager</td>
+                                    <td><a href="mailto:mia.moore@eitasm.com" class="employee-email">mia.moore@eitasm.com</a></td>
+                                    <td>Jul 16, 2020</td>
+                                    <td><span class="badge clearance-medium">Level 3</span></td>
+                                    <td><span class="status-indicator employee-inactive">Inactive</span></td>
+                                    <td class="text-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Actions for Mia Moore">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-2"></i>Edit</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+
+                        <p class="employee-table-info mb-0">
+                            Showing 1 to 10 of 248 employees
+                        </p>
+
+                        <nav aria-label="Employee table pagination">
+
+                            <ul class="pagination pagination-sm mb-0">
+
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Previous</a>
+                                </li>
+
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+
+                            </ul>
+
+                        </nav>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Add Employee Modal -->
+    <div
+        class="modal fade"
+        id="employeeModal"
+        tabindex="-1"
+        aria-labelledby="employeeModalLabel"
+        aria-hidden="true"
+    >
+
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <div>
+                        <h2
+                            class="modal-title fs-5"
+                            id="employeeModalLabel"
+                        >
+                            Add New Employee
+                        </h2>
+
+                        <p class="text-muted small mb-0">
+                            Enter the employee information below.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <form id="employeeForm">
+
+                        <div class="row g-3">
+
+                            <div class="col-12 col-md-6">
+
+                                <label
+                                    for="firstName"
+                                    class="form-label"
+                                >
+                                    First Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="firstName"
+                                    placeholder="Enter first name"
+                                >
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                                <label
+                                    for="lastName"
+                                    class="form-label"
+                                >
+                                    Last Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="lastName"
+                                    placeholder="Enter last name"
+                                >
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                                <label
+                                    for="employeeEmail"
+                                    class="form-label"
+                                >
+                                    Email
+                                </label>
+
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="employeeEmail"
+                                    placeholder="employee@eitasm.com"
+                                >
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                                <label
+                                    for="jobTitle"
+                                    class="form-label"
+                                >
+                                    Job Title
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="jobTitle"
+                                    placeholder="Enter job title"
+                                >
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                                <label
+                                    for="department"
+                                    class="form-label"
+                                >
+                                    Department
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="department"
+                                >
+
+                                    <option selected disabled>
+                                        Select department
+                                    </option>
+
+                                    <option>Information Technology</option>
+                                    <option>Human Resources</option>
+                                    <option>Security Operations</option>
+                                    <option>Finance</option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                                <label
+                                    for="clearanceLevel"
+                                    class="form-label"
+                                >
+                                    Clearance Level
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="clearanceLevel"
+                                >
+
+                                    <option selected disabled>
+                                        Select clearance level
+                                    </option>
+
+                                    <option>Level 1</option>
+                                    <option>Level 2</option>
+                                    <option>Level 3</option>
+                                    <option>Level 4</option>
+                                    <option>Level 5</option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label for="hireDate" class="form-label">Hire Date</label>
+                                <input type="date" class="form-control" id="hireDate">
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label for="employeePhoto" class="form-label">Employee Photo</label>
+                                <input type="file" class="form-control" id="employeePhoto" accept="image/*">
+                            </div>
+
+                            <div class="col-12">
+
+                                <label
+                                    for="employeeStatus"
+                                    class="form-label"
+                                >
+                                    Status
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="employeeStatus"
+                                >
+                                    <option>Active</option>
+                                    <option>On Leave</option>
+                                    <option>Inactive</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                    >
+                        <i class="bi bi-person-plus-fill me-1"></i>
+                        Save Employee
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>EITASM | Dashboard</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+
+                <img
+                    src="images/logo.svg"
+                    class="logo-image"
+                    alt="EITASM Logo"
+                >
+
+                <div>
+                    <h1 class="logo-title">EITASM</h1>
+                    <p class="logo-subtitle">Management System</p>
+                </div>
+
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a href="index.html" class="nav-item active">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="employees.html" class="nav-item">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Employees</span>
+                </a>
+
+                <a href="departments.html" class="nav-item">
+                    <i class="bi bi-building"></i>
+                    <span>Departments</span>
+                </a>
+
+                <a href="assets.html" class="nav-item">
+                    <i class="bi bi-pc-display"></i>
+                    <span>Hardware Assets</span>
+                </a>
+
+                <a href="licenses.html" class="nav-item">
+                    <i class="bi bi-key-fill"></i>
+                    <span>Software Licenses</span>
+                </a>
+
+                <a href="incidents.html" class="nav-item">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span>Security Incidents</span>
+                </a>
+
+                <a href="audit-logs.html" class="nav-item">
+                    <i class="bi bi-clipboard-data-fill"></i>
+                    <span>Audit Logs</span>
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+
+                <a href="profile.html" class="nav-item">
+                    <i class="bi bi-person-circle"></i>
+                    <span>My Profile</span>
+                </a>
+
+                <a href="login.html" class="nav-item">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Logout</span>
+                </a>
+
+            </div>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Top Navbar -->
+            <header class="top-navbar">
+
+                <button
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    type="button"
+                    aria-label="Open menu"
+                >
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <div class="search-box">
+
+                    <i class="bi bi-search"></i>
+
+                    <input
+                        type="search"
+                        placeholder="Search employees, assets or incidents..."
+                    >
+
+                </div>
+
+                <div class="navbar-actions">
+
+                    <button
+                        class="notification-button"
+                        type="button"
+                        aria-label="Notifications"
+                    >
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+
+                    <div class="user-profile">
+
+                        <div class="user-avatar">
+                            DO
+                        </div>
+
+                        <div class="user-information">
+                            <span class="user-name">Danny Ornelas</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+
+                        <i class="bi bi-chevron-down"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- Dashboard Content -->
+            <section class="dashboard-content">
+
+                <div class="page-heading">
+
+                    <div>
+                        <p class="page-eyebrow">SYSTEM OVERVIEW</p>
+                        <h2>Dashboard</h2>
+
+                        <p class="page-description">
+                            Monitor employees, IT assets, software licenses and security activity.
+                        </p>
+                    </div>
+
+                    <button
+                        class="btn btn-primary action-button"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#assetModal"
+                    >
+                        <i class="bi bi-plus-lg"></i>
+                        Add Asset
+                    </button>
+
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="row g-4 dashboard-cards">
+
+                    <div class="col-12 col-sm-6 col-xl-3">
+
+                        <article class="summary-card">
+
+                            <div class="summary-icon employees-icon">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+
+                            <div class="summary-content">
+                                <p>Total Employees</p>
+                                <h3>248</h3>
+
+                                <span class="positive-change">
+                                    <i class="bi bi-arrow-up-right"></i>
+                                    8 this month
+                                </span>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-3">
+
+                        <article class="summary-card">
+
+                            <div class="summary-icon assets-icon">
+                                <i class="bi bi-pc-display"></i>
+                            </div>
+
+                            <div class="summary-content">
+                                <p>Hardware Assets</p>
+                                <h3>412</h3>
+                                <span>376 currently assigned</span>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-3">
+
+                        <article class="summary-card">
+
+                            <div class="summary-icon licenses-icon">
+                                <i class="bi bi-key-fill"></i>
+                            </div>
+
+                            <div class="summary-content">
+                                <p>Active Licenses</p>
+                                <h3>186</h3>
+                                <span>14 expire within 30 days</span>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-3">
+
+                        <article class="summary-card">
+
+                            <div class="summary-icon incidents-icon">
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                            </div>
+
+                            <div class="summary-content">
+                                <p>Open Incidents</p>
+                                <h3>12</h3>
+
+                                <span class="danger-change">
+                                    3 high priority
+                                </span>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+                <!-- Main Dashboard Row -->
+                <div class="row g-4 mt-1">
+
+                    <!-- Recent Incidents -->
+                    <div class="col-12 col-xl-8">
+
+                        <article class="content-card">
+
+                            <div class="content-card-header">
+
+                                <div>
+                                    <h3>Recent Security Incidents</h3>
+                                    <p>Latest incidents reported in the system.</p>
+                                </div>
+
+                                <a href="incidents.html" class="view-all-link">
+                                    View all
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+
+                            </div>
+
+                            <div class="table-responsive">
+
+                                <table class="table dashboard-table align-middle">
+
+                                    <thead>
+
+                                        <tr>
+                                            <th>Incident</th>
+                                            <th>Asset</th>
+                                            <th>Severity</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <strong>Unauthorized login attempt</strong>
+                                            </td>
+
+                                            <td>LT-2045</td>
+
+                                            <td>
+                                                <span class="badge severity-high">
+                                                    High
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                <span class="status-indicator status-open">
+                                                    Open
+                                                </span>
+                                            </td>
+
+                                            <td>Aug 3, 2026</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <strong>Malware detected</strong>
+                                            </td>
+
+                                            <td>PC-1082</td>
+
+                                            <td>
+                                                <span class="badge severity-critical">
+                                                    Critical
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                <span class="status-indicator status-investigating">
+                                                    Investigating
+                                                </span>
+                                            </td>
+
+                                            <td>Aug 2, 2026</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <strong>Software policy violation</strong>
+                                            </td>
+
+                                            <td>LT-1988</td>
+
+                                            <td>
+                                                <span class="badge severity-medium">
+                                                    Medium
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                <span class="status-indicator status-resolved">
+                                                    Resolved
+                                                </span>
+                                            </td>
+
+                                            <td>Jul 31, 2026</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <strong>Suspicious USB device</strong>
+                                            </td>
+
+                                            <td>PC-1044</td>
+
+                                            <td>
+                                                <span class="badge severity-medium">
+                                                    Medium
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                <span class="status-indicator status-open">
+                                                    Open
+                                                </span>
+                                            </td>
+
+                                            <td>Jul 30, 2026</td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- Asset Status -->
+                    <div class="col-12 col-xl-4">
+
+                        <article class="content-card h-100">
+
+                            <div class="content-card-header">
+
+                                <div>
+                                    <h3>Asset Status</h3>
+                                    <p>Current hardware distribution.</p>
+                                </div>
+
+                            </div>
+
+                            <div class="asset-status-list">
+
+                                <div class="asset-status-item">
+
+                                    <div>
+                                        <span class="status-color assigned-color"></span>
+                                        Assigned
+                                    </div>
+
+                                    <strong>376</strong>
+
+                                </div>
+
+                                <div class="progress">
+                                    <div
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        style="width: 91%;"
+                                        aria-valuenow="91"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                    ></div>
+                                </div>
+
+                                <div class="asset-status-item">
+
+                                    <div>
+                                        <span class="status-color available-color"></span>
+                                        Available
+                                    </div>
+
+                                    <strong>21</strong>
+
+                                </div>
+
+                                <div class="progress">
+                                    <div
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        style="width: 52%;"
+                                        aria-valuenow="52"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                    ></div>
+                                </div>
+
+                                <div class="asset-status-item">
+
+                                    <div>
+                                        <span class="status-color maintenance-color"></span>
+                                        Maintenance
+                                    </div>
+
+                                    <strong>9</strong>
+
+                                </div>
+
+                                <div class="progress">
+                                    <div
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        style="width: 30%;"
+                                        aria-valuenow="30"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                    ></div>
+                                </div>
+
+                                <div class="asset-status-item">
+
+                                    <div>
+                                        <span class="status-color investigation-color"></span>
+                                        Under Investigation
+                                    </div>
+
+                                    <strong>6</strong>
+
+                                </div>
+
+                                <div class="progress">
+                                    <div
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        style="width: 20%;"
+                                        aria-valuenow="20"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                    ></div>
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+                <!-- Secondary Dashboard Row -->
+                <div class="row g-4 mt-1">
+
+                    <!-- Recent Employees -->
+                    <div class="col-12 col-xl-7">
+
+                        <article class="content-card">
+
+                            <div class="content-card-header">
+
+                                <div>
+                                    <h3>Recent Employees</h3>
+                                    <p>Recently added personnel records.</p>
+                                </div>
+
+                                <a href="employees.html" class="view-all-link">
+                                    View employees
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+
+                            </div>
+
+                            <div class="table-responsive">
+
+                                <table class="table dashboard-table align-middle">
+
+                                    <thead>
+
+                                        <tr>
+                                            <th>Employee</th>
+                                            <th>Department</th>
+                                            <th>Position</th>
+                                            <th>Status</th>
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+
+                                                <div class="d-flex align-items-center gap-3">
+
+                                                    <img
+                                                        src="images/employees/N001_John_Doe.jpg"
+                                                        class="employee-photo"
+                                                        alt="John Doe"
+                                                    >
+
+                                                    <div>
+                                                        <strong>John Doe</strong>
+
+                                                        <div class="employee-id">
+                                                            EMP-1001
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </td>
+
+                                            <td>Information Technology</td>
+                                            <td>System Administrator</td>
+
+                                            <td>
+                                                <span class="status-indicator status-resolved">
+                                                    Active
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+
+                                                <div class="d-flex align-items-center gap-3">
+
+                                                    <img
+                                                        src="images/employees/N002_Emma_Johnson.jpg"
+                                                        class="employee-photo"
+                                                        alt="Emma Johnson"
+                                                    >
+
+                                                    <div>
+                                                        <strong>Emma Johnson</strong>
+
+                                                        <div class="employee-id">
+                                                            EMP-1002
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </td>
+
+                                            <td>Human Resources</td>
+                                            <td>HR Manager</td>
+
+                                            <td>
+                                                <span class="status-indicator status-resolved">
+                                                    Active
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+
+                                                <div class="d-flex align-items-center gap-3">
+
+                                                    <img
+                                                        src="images/employees/N003_Michael_Brown.jpg"
+                                                        class="employee-photo"
+                                                        alt="Michael Brown"
+                                                    >
+
+                                                    <div>
+                                                        <strong>Michael Brown</strong>
+
+                                                        <div class="employee-id">
+                                                            EMP-1003
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </td>
+
+                                            <td>Security Operations</td>
+                                            <td>Security Analyst</td>
+
+                                            <td>
+                                                <span class="status-indicator status-investigating">
+                                                    On Leave
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- License Overview -->
+                    <div class="col-12 col-xl-5">
+
+                        <article class="content-card h-100">
+
+                            <div class="content-card-header">
+
+                                <div>
+                                    <h3>License Overview</h3>
+                                    <p>Software seat usage and expiration alerts.</p>
+                                </div>
+
+                                <a href="licenses.html" class="view-all-link">
+                                    View all
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+
+                            </div>
+
+                            <div class="d-flex flex-column gap-3">
+
+                                <div class="border rounded-3 p-3">
+
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <strong>Microsoft 365</strong>
+                                        <span class="badge text-bg-success">Active</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between text-muted small mb-2">
+                                        <span>82 of 100 seats used</span>
+                                        <span>82%</span>
+                                    </div>
+
+                                    <div class="progress">
+                                        <div
+                                            class="progress-bar"
+                                            role="progressbar"
+                                            style="width: 82%;"
+                                            aria-valuenow="82"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                        ></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="border rounded-3 p-3">
+
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <strong>Adobe Creative Cloud</strong>
+                                        <span class="badge text-bg-warning">Expiring Soon</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between text-muted small mb-2">
+                                        <span>35 of 40 seats used</span>
+                                        <span>88%</span>
+                                    </div>
+
+                                    <div class="progress">
+                                        <div
+                                            class="progress-bar"
+                                            role="progressbar"
+                                            style="width: 88%;"
+                                            aria-valuenow="88"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                        ></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="border rounded-3 p-3">
+
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <strong>Endpoint Security</strong>
+                                        <span class="badge text-bg-success">Active</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between text-muted small mb-2">
+                                        <span>244 of 250 seats used</span>
+                                        <span>98%</span>
+                                    </div>
+
+                                    <div class="progress">
+                                        <div
+                                            class="progress-bar"
+                                            role="progressbar"
+                                            style="width: 98%;"
+                                            aria-valuenow="98"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                        ></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Add Asset Modal -->
+    <div
+        class="modal fade"
+        id="assetModal"
+        tabindex="-1"
+        aria-labelledby="assetModalLabel"
+        aria-hidden="true"
+    >
+
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <div>
+                        <h2
+                            class="modal-title fs-5"
+                            id="assetModalLabel"
+                        >
+                            Add New Hardware Asset
+                        </h2>
+
+                        <p class="text-muted small mb-0">
+                            Enter the basic information for the new asset.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <form>
+
+                        <div class="row g-3">
+
+                            <div class="col-12 col-md-6">
+
+                                <label for="assetName" class="form-label">
+                                    Asset Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="assetName"
+                                    placeholder="Example: Dell Latitude 5540"
+                                >
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                                <label for="assetType" class="form-label">
+                                    Asset Type
+                                </label>
+
+                                <select class="form-select" id="assetType">
+                                    <option selected disabled>Select asset type</option>
+                                    <option>Laptop</option>
+                                    <option>Desktop</option>
+                                    <option>Server</option>
+                                    <option>Mobile Device</option>
+                                    <option>Network Equipment</option>
+                                </select>
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                                <label for="serialNumber" class="form-label">
+                                    Serial Number
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="serialNumber"
+                                    placeholder="Enter serial number"
+                                >
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                                <label for="assetStatus" class="form-label">
+                                    Status
+                                </label>
+
+                                <select class="form-select" id="assetStatus">
+                                    <option>Available</option>
+                                    <option>Assigned</option>
+                                    <option>Maintenance</option>
+                                    <option>Under Investigation</option>
+                                    <option>Retired</option>
+                                </select>
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                                <label for="assignedEmployee" class="form-label">
+                                    Assigned Employee
+                                </label>
+
+                                <select class="form-select" id="assignedEmployee">
+                                    <option selected>Not Assigned</option>
+                                    <option>John Doe</option>
+                                    <option>Emma Johnson</option>
+                                    <option>Michael Brown</option>
+                                    <option>Sophia Davis</option>
+                                </select>
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                                <label for="securityLevel" class="form-label">
+                                    Security Requirement
+                                </label>
+
+                                <select class="form-select" id="securityLevel">
+                                    <option>Level 1</option>
+                                    <option>Level 2</option>
+                                    <option>Level 3</option>
+                                    <option>Level 4</option>
+                                    <option>Level 5</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button type="button" class="btn btn-primary">
+                        <i class="bi bi-save me-1"></i>
+                        Save Asset
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
