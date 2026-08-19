@@ -1,0 +1,52 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+
+title EITASM - Use Case Diagram
+
+actor "Authenticated User" as User
+
+rectangle "EITASM" {
+
+    usecase "View Dashboard" as UC1
+
+    usecase "View Employees" as UC2
+    usecase "View Departments" as UC3
+
+    usecase "View Hardware Assets" as UC4
+    usecase "View Asset Types" as UC5
+
+    usecase "View Software Licenses" as UC6
+    usecase "View License Assignments" as UC7
+
+    usecase "View Security Incidents" as UC8
+    usecase "View Audit Logs" as UC9
+
+    usecase "Search Records" as UC10
+
+    usecase "View Reports" as UC11
+    usecase "Print Reports" as UC12
+
+    usecase "Manage Settings" as UC13
+
+    usecase "Logout" as UC14
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+User --> UC8
+User --> UC9
+User --> UC10
+User --> UC11
+User --> UC12
+User --> UC13
+User --> UC14
+
+
+@enduml

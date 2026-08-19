@@ -1,0 +1,47 @@
+[
+    {
+        "assignmentId": 5001,
+        "licenseId": 3001,
+        "software": "Microsoft 365 Business Standard",
+        "employeeId": 1,
+        "assignedTo": "John Smith",
+        "assignedDate": "2026-01-15",
+        "status": "Active"
+    },
+    {
+        "assignmentId": 5002,
+        "licenseId": 3002,
+        "software": "Adobe Creative Cloud",
+        "employeeId": 2,
+        "assignedTo": "Sarah Johnson",
+        "assignedDate": "2026-02-10",
+        "status": "Active"
+    },
+    {
+        "assignmentId": 5003,
+        "licenseId": 3001,
+        "software": "Microsoft 365 Business Standard",
+        "employeeId": 3,
+        "assignedTo": "Michael Brown",
+        "assignedDate": "2026-03-05",
+        "status": "Active"
+    },
+    {
+        "assignmentId": 5004,
+        "licenseId": 3005,
+        "software": "JetBrains All Products Pack",
+        "employeeId": 1,
+        "assignedTo": "John Smith",
+        "assignedDate": "2026-04-18",
+        "status": "Active"
+    },
+    {
+        "assignmentId": 5005,
+        "licenseId": 3004,
+        "software": "Cisco Secure Endpoint",
+        "employeeId": 3,
+        "assignedTo": "Michael Brown",
+        "assignedDate": "2026-05-22",
+        "status": "Active"
+    }
+]

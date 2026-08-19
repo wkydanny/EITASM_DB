@@ -1,0 +1,47 @@
+[
+  {
+    "incidentId": 4001,
+    "title": "Suspicious Login Attempt",
+    "type": "Unauthorized Access",
+    "severity": "High",
+    "status": "Open",
+    "reportedBy": "John Smith",
+    "reportedDate": "2026-08-10"
+  },
+  {
+    "incidentId": 4002,
+    "title": "Malware Detected",
+    "type": "Malware",
+    "severity": "Critical",
+    "status": "In Progress",
+    "reportedBy": "Sarah Johnson",
+    "reportedDate": "2026-08-12"
+  },
+  {
+    "incidentId": 4003,
+    "title": "Phishing Email Reported",
+    "type": "Phishing",
+    "severity": "Medium",
+    "status": "Resolved",
+    "reportedBy": "Michael Brown",
+    "reportedDate": "2026-08-14"
+  },
+  {
+    "incidentId": 4004,
+    "title": "Multiple Failed Login Attempts",
+    "type": "Authentication",
+    "severity": "High",
+    "status": "Investigating",
+    "reportedBy": "Emily Davis",
+    "reportedDate": "2026-08-16"
+  },
+  {
+    "incidentId": 4005,
+    "title": "Unauthorized USB Device",
+    "type": "Policy Violation",
+    "severity": "Low",
+    "status": "Closed",
+    "reportedBy": "Daniel Lee",
+    "reportedDate": "2026-08-17"
+  }
+]

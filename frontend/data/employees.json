@@ -1,0 +1,29 @@
+[
+  {
+    "employeeId": 1,
+    "firstName": "John",
+    "lastName": "Smith",
+    "phoneNumber": "514-555-0101",
+    "email": "john.smith@eitasm.com",
+    "department": "IT",
+    "securityLevel": 2
+  },
+  {
+    "employeeId": 2,
+    "firstName": "Sarah",
+    "lastName": "Johnson",
+    "phoneNumber": "514-555-0102",
+    "email": "sarah.johnson@eitasm.com",
+    "department": "Human Resources",
+    "securityLevel": 1
+  },
+  {
+    "employeeId": 3,
+    "firstName": "Michael",
+    "lastName": "Brown",
+    "phoneNumber": "514-555-0103",
+    "email": "michael.brown@eitasm.com",
+    "department": "Finance",
+    "securityLevel": 1
+  }
+]

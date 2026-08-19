@@ -1,0 +1,68 @@
+@startuml
+title EITASM - Class Diagram
+
+class Department {
+  - departmentID : int
+  - deptName : String
+  - managerID : int
+}
+
+class Employee {
+  - employeeID : int
+  - firstName : String
+  - lastName : String
+  - email : String
+  - phoneNumber : String
+  - departmentID : int
+  - userSecurityLevel : int
+}
+
+class AssetType {
+  - assetTypeID : int
+  - typeName : String
+}
+
+class HardwareAsset {
+  - assetID : int
+  - hostName : String
+  - assetTypeID : int
+  - purchaseDate : Date
+  - currentStatus : String
+  - assignedToEmployeeID : int
+  - securityRequirement : int
+}
+
+class SecurityIncident {
+  - incidentID : int
+  - targetAssetID : int
+  - severityLevelID : int
+  - description : String
+  - resolutionStatus : String
+  - dateReported : DateTime
+  - assignedToEmployeeID : int
+}
+
+class SeverityLevel {
+  - severityLevelID : int
+  - severityName : String
+}
+
+class UserCredential {
+  - credentialID : int
+  - employeeID : int
+  - username : String
+  - passwordHash : String
+  - forceFirstTimeLogin : boolean
+  - passwordExpirationDate : DateTime
+  - accountLocked : boolean
+}
+
+Department "1" -- "0..*" Employee
+Employee "1" -- "0..*" HardwareAsset
+AssetType "1" -- "0..*" HardwareAsset
+HardwareAsset "1" -- "0..*" SecurityIncident
+SeverityLevel "1" -- "0..*" SecurityIncident
+Employee "1" -- "0..*" SecurityIncident
+Employee "1" -- "0..1" UserCredential
+
+@enduml
