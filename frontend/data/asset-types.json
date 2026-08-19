@@ -1,0 +1,27 @@
+[
+  {
+    "assetTypeId": 1,
+    "typeName": "Laptop",
+    "description": "Portable computers assigned to employees"
+  },
+  {
+    "assetTypeId": 2,
+    "typeName": "Desktop",
+    "description": "Desktop computers used in offices"
+  },
+  {
+    "assetTypeId": 3,
+    "typeName": "Printer",
+    "description": "Office printing devices"
+  },
+  {
+    "assetTypeId": 4,
+    "typeName": "Network",
+    "description": "Network infrastructure devices"
+  },
+  {
+    "assetTypeId": 5,
+    "typeName": "Server",
+    "description": "Physical server infrastructure"
+  }
+]

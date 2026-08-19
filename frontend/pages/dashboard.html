@@ -7,124 +7,1692 @@
 
     <title>EITASM Dashboard</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
     <link rel="stylesheet" href="../css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class="bg-light">
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="../index.html">
-                EITASM
+<!-- =========================================
+     LOGIN / SESSION PROTECTION
+========================================= -->
+
+<script>
+
+    const protectedUser =
+        sessionStorage.getItem("eitasmCurrentUser") ||
+        localStorage.getItem("eitasmCurrentUser");
+
+    if (!protectedUser) {
+        window.location.replace("login.html");
+    }
+
+</script>
+
+
+<div class="dashboard-layout">
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="d-flex align-items-center gap-2">
+
+                <div class="logo-mark">
+                    <i class="bi bi-boxes"></i>
+                </div>
+
+                <div>
+                    <h2>EITASM</h2>
+                    <p>IT Asset Management</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html" class="active">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
             </a>
 
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link active" href="dashboard.html">
-                    Dashboard
-                </a>
+            <a href="employees.html">
+                <i class="bi bi-people"></i>
+                <span>Employees</span>
+            </a>
 
-                <a class="nav-link" href="employees.html">
-                    Employees
-                </a>
+            <a href="departments.html">
+                <i class="bi bi-building"></i>
+                <span>Departments</span>
+            </a>
 
-                <a class="nav-link" href="assets.html">
-                    Hardware Assets
-                </a>
+            <a href="assets.html">
+                <i class="bi bi-pc-display"></i>
+                <span>Hardware Assets</span>
+            </a>
 
-                <a class="nav-link" href="licenses.html">
-                    Software Licenses
-                </a>
+            <a href="asset-types.html">
+                <i class="bi bi-box-seam"></i>
+                <span>Asset Types</span>
+            </a>
 
-                <a class="nav-link" href="incidents.html">
-                    Security Incidents
-                </a>
-                <a class="nav-link" href="login.html">
-                    Login
-                </a>
-            </div>
+            <a href="licenses.html">
+                <i class="bi bi-key"></i>
+                <span>Software Licenses</span>
+            </a>
+
+            <a href="license-assignments.html">
+                <i class="bi bi-file-earmark-lock"></i>
+                <span>License Assignments</span>
+            </a>
+
+            <a href="incidents.html">
+                <i class="bi bi-shield-exclamation"></i>
+                <span>Security Incidents</span>
+            </a>
+
+            <a href="audit-logs.html">
+                <i class="bi bi-journal-text"></i>
+                <span>Audit Logs</span>
+            </a>
+
+            <a href="reports.html">
+                <i class="bi bi-bar-chart"></i>
+                <span>Reports</span>
+            </a>
+
+            <a href="settings.html">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-user">
+
+            <strong id="sidebarUserName">
+                Danny
+            </strong>
+
+            <span id="sidebarUserRole">
+                Administrator
+            </span>
+
         </div>
-    </nav>
 
-    <main class="container py-5">
-        <h1 class="mb-4">Dashboard</h1>
+    </aside>
 
-        <div class="row g-4">
 
-            <div class="col-md-6 col-lg-3">
-                <a href="employees.html" class="text-decoration-none text-dark d-block h-100">
+    <!-- =====================================
+         MAIN
+    ====================================== -->
 
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Employees</h5>
+    <main class="dashboard-main">
 
-                            <p class="display-6">700</p>
 
-                            <p class="text-muted mb-0">
-                                Registered employees
-                            </p>
-                        </div>
-                    </div>
+        <!-- =================================
+             TOP BAR
+        ================================== -->
 
-                </a>
+        <header class="dashboard-topbar">
+
+            <button
+                class="menu-button"
+                type="button"
+            >
+                <i class="bi bi-list"></i>
+            </button>
+
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="dashboardSearch"
+                    placeholder="Search anything..."
+                >
+
             </div>
 
-            <div class="col-md-6 col-lg-3">
-                <a href="assets.html" class="text-decoration-none text-dark d-block h-100">
 
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Hardware Assets</h5>
+            <div class="topbar-user">
 
-                            <p class="display-6">425</p>
+                <i class="bi bi-bell"></i>
 
-                            <p class="text-muted mb-0">
-                                Managed devices
-                            </p>
-                        </div>
-                    </div>
+                <i class="bi bi-moon"></i>
 
-                </a>
+
+                <div>
+
+                    <strong id="currentUserName">
+                        Danny
+                    </strong>
+
+                    <small id="currentUserRole">
+                        Administrator
+                    </small>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="logoutButton"
+                    class="btn btn-sm btn-outline-danger ms-3"
+                >
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    Logout
+
+                </button>
+
             </div>
 
-            <div class="col-md-6 col-lg-3">
-                <a href="licenses.html" class="text-decoration-none text-dark d-block h-100">
+        </header>
 
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Software Licenses</h5>
 
-                            <p class="display-6">86</p>
+        <!-- =================================
+             WELCOME
+        ================================== -->
 
-                            <p class="text-muted mb-0">
-                                Active licenses
-                            </p>
-                        </div>
-                    </div>
+        <section class="welcome-section">
 
-                </a>
+            <div>
+
+                <h1 id="welcomeMessage">
+                    Welcome back, Danny!
+                </h1>
+
+                <p>
+                    Here's what's happening with your IT environment today.
+                </p>
+
             </div>
 
-            <div class="col-md-6 col-lg-3">
-                <a href="incidents.html" class="text-decoration-none text-dark d-block h-100">
 
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Security Incidents</h5>
+            <button
+                class="btn btn-primary"
+                type="button"
+            >
 
-                            <p class="display-6">12</p>
+                <i class="bi bi-gear me-1"></i>
 
-                            <p class="text-muted mb-0">
-                                Open incidents
-                            </p>
+                Customize
+
+            </button>
+
+        </section>
+
+
+        <!-- =================================
+             DASHBOARD CONTENT
+        ================================== -->
+
+        <div class="dashboard-content">
+
+
+            <!-- =============================
+                 CENTER CONTENT
+            ============================== -->
+
+            <div class="dashboard-center">
+
+
+                <!-- =========================
+                     KPI CARDS
+                ========================== -->
+
+                <div class="stats-grid">
+
+
+                    <!-- Employees -->
+
+                    <a
+                        href="employees.html"
+                        class="dashboard-card-link"
+                    >
+
+                        <div class="dashboard-card">
+
+                            <div class="card-icon blue">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Employees
+                                </span>
+
+                                <h2 id="employeeCount">
+                                    0
+                                </h2>
+
+                                <small class="success-text">
+
+                                    <i class="bi bi-database-check"></i>
+
+                                    JSON data
+
+                                </small>
+
+                            </div>
+
                         </div>
+
+                    </a>
+
+
+                    <!-- Assets -->
+
+                    <a
+                        href="assets.html"
+                        class="dashboard-card-link"
+                    >
+
+                        <div class="dashboard-card">
+
+                            <div class="card-icon green">
+                                <i class="bi bi-display"></i>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Hardware Assets
+                                </span>
+
+                                <h2 id="assetCount">
+                                    0
+                                </h2>
+
+                                <small class="success-text">
+
+                                    <i class="bi bi-database-check"></i>
+
+                                    JSON data
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- Licenses -->
+
+                    <a
+                        href="licenses.html"
+                        class="dashboard-card-link"
+                    >
+
+                        <div class="dashboard-card">
+
+                            <div class="card-icon purple">
+                                <i class="bi bi-key-fill"></i>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Software Licenses
+                                </span>
+
+                                <h2 id="licenseCount">
+                                    0
+                                </h2>
+
+                                <small class="success-text">
+
+                                    <i class="bi bi-database-check"></i>
+
+                                    JSON data
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- Incidents -->
+
+                    <a
+                        href="incidents.html"
+                        class="dashboard-card-link"
+                    >
+
+                        <div class="dashboard-card">
+
+                            <div class="card-icon red">
+                                <i class="bi bi-shield-fill-exclamation"></i>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Open Incidents
+                                </span>
+
+                                <h2 id="incidentCount">
+                                    0
+                                </h2>
+
+                                <small class="danger-text">
+
+                                    <i class="bi bi-exclamation-circle"></i>
+
+                                    Requires attention
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+                <!-- =========================
+                     CHARTS
+                ========================== -->
+
+                <div class="charts-grid">
+
+
+                    <!-- Assets by Type -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <h3>
+                                Assets by Type
+                            </h3>
+
+                            <select>
+
+                                <option>
+                                    Current Data
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="chart-container">
+
+                            <canvas id="assetsChart"></canvas>
+
+                        </div>
+
                     </div>
 
-                </a>
+
+                    <!-- Security Incidents -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <h3>
+                                Monthly Security Incidents
+                            </h3>
+
+                            <select>
+
+                                <option>
+                                    2026
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="chart-container">
+
+                            <canvas id="incidentChart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     BOTTOM GRID
+                ========================== -->
+
+                <div class="bottom-grid">
+
+
+                    <!-- Recent Activity -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <h3>
+                                Recent Activity
+                            </h3>
+
+                        </div>
+
+
+                        <div class="activity-list">
+
+
+                            <div class="activity-item">
+
+                                <span>
+                                    09:31 AM
+                                </span>
+
+                                <strong>
+
+                                    <i class="bi bi-laptop me-1"></i>
+
+                                    Laptop assigned
+
+                                </strong>
+
+                                <small>
+                                    John Smith - Dell Latitude 5420
+                                </small>
+
+                            </div>
+
+
+                            <div class="activity-item">
+
+                                <span>
+                                    09:42 AM
+                                </span>
+
+                                <strong>
+
+                                    <i class="bi bi-key me-1"></i>
+
+                                    License activated
+
+                                </strong>
+
+                                <small>
+                                    Microsoft 365 Business Standard
+                                </small>
+
+                            </div>
+
+
+                            <div class="activity-item">
+
+                                <span>
+                                    09:51 AM
+                                </span>
+
+                                <strong>
+
+                                    <i class="bi bi-shield-exclamation me-1"></i>
+
+                                    Incident reported
+
+                                </strong>
+
+                                <small>
+                                    Phishing attempt detected
+                                </small>
+
+                            </div>
+
+
+                            <div class="activity-item">
+
+                                <span>
+                                    10:02 AM
+                                </span>
+
+                                <strong>
+
+                                    <i class="bi bi-person-check me-1"></i>
+
+                                    Employee updated
+
+                                </strong>
+
+                                <small>
+                                    Sarah Johnson profile updated
+                                </small>
+
+                            </div>
+
+
+                            <div class="activity-item">
+
+                                <span>
+                                    10:15 AM
+                                </span>
+
+                                <strong>
+
+                                    <i class="bi bi-plus-square me-1"></i>
+
+                                    New asset added
+
+                                </strong>
+
+                                <small>
+                                    HP LaserJet Pro M404dn
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <a
+                            href="audit-logs.html"
+                            class="view-link"
+                        >
+
+                            View all activity
+
+                            <i class="bi bi-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- Quick Actions -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <h3>
+                                Quick Actions
+                            </h3>
+
+                        </div>
+
+
+                        <div class="quick-actions">
+
+
+                            <a href="employees.html">
+
+                                <i class="bi bi-person-plus"></i>
+
+                                <span>
+                                    Add Employee
+                                </span>
+
+                            </a>
+
+
+                            <a href="assets.html">
+
+                                <i class="bi bi-plus-square"></i>
+
+                                <span>
+                                    Add Asset
+                                </span>
+
+                            </a>
+
+
+                            <a href="licenses.html">
+
+                                <i class="bi bi-key"></i>
+
+                                <span>
+                                    Add License
+                                </span>
+
+                            </a>
+
+
+                            <a href="incidents.html">
+
+                                <i class="bi bi-shield-exclamation"></i>
+
+                                <span>
+                                    Report Incident
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-            </script>
+
+            <!-- =============================
+                 RIGHT SIDE
+            ============================== -->
+
+            <aside class="dashboard-right">
+
+
+                <!-- Quick Stats -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            Quick Stats
+                        </h3>
+
+                    </div>
+
+
+                    <div class="quick-stats-grid">
+
+
+                        <div>
+
+                            <span>
+                                Departments
+                            </span>
+
+                            <h3 id="departmentCount">
+                                0
+                            </h3>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Assets Assigned
+                            </span>
+
+                            <h3 id="assignedAssetCount">
+                                0
+                            </h3>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Licenses Used
+                            </span>
+
+                            <h3 id="licensesUsedCount">
+                                0
+                            </h3>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Active Users
+                            </span>
+
+                            <h3 id="activeUserCount">
+                                0
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Calendar -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            Calendar
+                        </h3>
+
+                    </div>
+
+
+                    <div class="calendar-box">
+
+                        <h4>
+                            August 2026
+                        </h4>
+
+
+                        <div class="calendar-grid">
+
+                            <span>Su</span>
+                            <span>Mo</span>
+                            <span>Tu</span>
+                            <span>We</span>
+                            <span>Th</span>
+                            <span>Fr</span>
+                            <span>Sa</span>
+
+                            <span>26</span>
+                            <span>27</span>
+                            <span>28</span>
+                            <span>29</span>
+                            <span>30</span>
+                            <span>31</span>
+                            <span>1</span>
+
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                            <span>15</span>
+
+                            <span>16</span>
+                            <span>17</span>
+
+                            <span class="calendar-active">
+                                18
+                            </span>
+
+                            <span>19</span>
+                            <span>20</span>
+                            <span>21</span>
+                            <span>22</span>
+
+                            <span>23</span>
+                            <span>24</span>
+                            <span>25</span>
+                            <span>26</span>
+                            <span>27</span>
+                            <span>28</span>
+                            <span>29</span>
+
+                            <span>30</span>
+                            <span>31</span>
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Announcements -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            Announcements
+                        </h3>
+
+                        <a href="audit-logs.html">
+
+                            View all
+
+                            <i class="bi bi-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="announcement">
+
+                        <strong>
+
+                            <i class="bi bi-megaphone me-1"></i>
+
+                            System Maintenance
+
+                        </strong>
+
+                        <p>
+                            Scheduled maintenance will be announced here.
+                        </p>
+
+                    </div>
+
+
+                    <div class="announcement">
+
+                        <strong>
+
+                            <i class="bi bi-info-circle me-1"></i>
+
+                            Security Policy
+
+                        </strong>
+
+                        <p>
+                            Please review the latest IT security procedures.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================
+     USER SESSION
+========================================= -->
+
+<script>
+
+    function loadCurrentUser() {
+
+        const storedUser =
+            sessionStorage.getItem("eitasmCurrentUser") ||
+            localStorage.getItem("eitasmCurrentUser");
+
+
+        if (!storedUser) {
+            return;
+        }
+
+
+        try {
+
+            const user =
+                JSON.parse(storedUser);
+
+
+            let displayName =
+                user.name ||
+                user.firstName ||
+                "User";
+
+
+            if (
+                !user.name &&
+                user.firstName &&
+                user.lastName
+            ) {
+
+                displayName =
+                    user.firstName +
+                    " " +
+                    user.lastName;
+
+            }
+
+
+            const role =
+                user.role ||
+                "User";
+
+
+            document
+                .getElementById("currentUserName")
+                .textContent =
+                displayName;
+
+
+            document
+                .getElementById("currentUserRole")
+                .textContent =
+                role;
+
+
+            document
+                .getElementById("sidebarUserName")
+                .textContent =
+                displayName;
+
+
+            document
+                .getElementById("sidebarUserRole")
+                .textContent =
+                role;
+
+
+            document
+                .getElementById("welcomeMessage")
+                .textContent =
+                "Welcome back, " +
+                displayName +
+                "!";
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Unable to read current user:",
+                error
+            );
+
+        }
+
+    }
+
+
+    document
+        .getElementById("logoutButton")
+        .addEventListener(
+            "click",
+            function () {
+
+                sessionStorage.removeItem(
+                    "eitasmCurrentUser"
+                );
+
+                sessionStorage.removeItem(
+                    "eitasmLoggedIn"
+                );
+
+                localStorage.removeItem(
+                    "eitasmCurrentUser"
+                );
+
+
+                window.location.replace(
+                    "login.html"
+                );
+
+            }
+        );
+
+
+    loadCurrentUser();
+
+</script>
+
+
+<!-- =========================================
+     DASHBOARD DATA
+========================================= -->
+
+<script>
+
+    let assetsChartInstance = null;
+    let incidentChartInstance = null;
+
+
+    async function loadDashboardData() {
+
+        try {
+
+            const responses =
+                await Promise.all([
+
+                    fetch("../data/employees.json"),
+
+                    fetch("../data/assets.json"),
+
+                    fetch("../data/licenses.json"),
+
+                    fetch("../data/incidents.json")
+
+                ]);
+
+
+            responses.forEach(
+                response => {
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            "Unable to load dashboard JSON data."
+                        );
+
+                    }
+
+                }
+            );
+
+
+            const employees =
+                await responses[0].json();
+
+
+            const assets =
+                await responses[1].json();
+
+
+            const licenses =
+                await responses[2].json();
+
+
+            const incidents =
+                await responses[3].json();
+
+
+            /*
+             * =============================
+             * KPI DATA
+             * =============================
+             */
+
+
+            document
+                .getElementById("employeeCount")
+                .textContent =
+                employees.length;
+
+
+            document
+                .getElementById("assetCount")
+                .textContent =
+                assets.length;
+
+
+            document
+                .getElementById("licenseCount")
+                .textContent =
+                licenses.length;
+
+
+            /*
+             * Active / Open security incidents
+             */
+
+            const openIncidents =
+                incidents.filter(
+                    incident => {
+
+                        return (
+
+                            incident.status === "Open"
+
+                            ||
+
+                            incident.status === "In Progress"
+
+                            ||
+
+                            incident.status === "Investigating"
+
+                        );
+
+                    }
+                );
+
+
+            document
+                .getElementById("incidentCount")
+                .textContent =
+                openIncidents.length;
+
+
+            /*
+             * =============================
+             * DEPARTMENTS
+             * =============================
+             */
+
+            const departments =
+                new Set();
+
+
+            employees.forEach(
+                employee => {
+
+                    if (
+                        employee.department &&
+                        employee.department !== "Unassigned"
+                    ) {
+
+                        departments.add(
+                            employee.department
+                        );
+
+                    }
+
+                }
+            );
+
+
+            assets.forEach(
+                asset => {
+
+                    if (
+                        asset.department &&
+                        asset.department !== "Unassigned"
+                    ) {
+
+                        departments.add(
+                            asset.department
+                        );
+
+                    }
+
+                }
+            );
+
+
+            document
+                .getElementById("departmentCount")
+                .textContent =
+                departments.size;
+
+
+            /*
+             * =============================
+             * ASSIGNED ASSETS
+             * =============================
+             */
+
+            const assignedAssets =
+                assets.filter(
+                    asset => {
+
+                        return (
+
+                            asset.status === "Assigned"
+
+                            ||
+
+                            (
+                                asset.assignedTo &&
+                                asset.assignedTo !== "Unassigned"
+                            )
+
+                        );
+
+                    }
+                );
+
+
+            document
+                .getElementById("assignedAssetCount")
+                .textContent =
+                assignedAssets.length;
+
+
+            /*
+             * =============================
+             * USED LICENSE SEATS
+             * =============================
+             */
+
+            const licensesUsed =
+                licenses.reduce(
+                    (total, license) => {
+
+                        return (
+                            total +
+                            Number(
+                                license.usedSeats || 0
+                            )
+                        );
+
+                    },
+                    0
+                );
+
+
+            document
+                .getElementById("licensesUsedCount")
+                .textContent =
+                licensesUsed;
+
+
+            /*
+             * =============================
+             * ACTIVE USERS
+             * =============================
+             */
+
+            document
+                .getElementById("activeUserCount")
+                .textContent =
+                employees.length;
+
+
+            /*
+             * =============================
+             * ASSET TYPES CHART
+             * =============================
+             */
+
+            const assetTypes = {};
+
+
+            assets.forEach(
+                asset => {
+
+                    const type =
+                        asset.assetType ||
+                        "Other";
+
+
+                    if (!assetTypes[type]) {
+
+                        assetTypes[type] = 0;
+
+                    }
+
+
+                    assetTypes[type]++;
+
+                }
+            );
+
+
+            const assetLabels =
+                Object.keys(
+                    assetTypes
+                );
+
+
+            const assetValues =
+                Object.values(
+                    assetTypes
+                );
+
+
+            if (assetsChartInstance) {
+
+                assetsChartInstance.destroy();
+
+            }
+
+
+            assetsChartInstance =
+                new Chart(
+
+                    document.getElementById(
+                        "assetsChart"
+                    ),
+
+                    {
+
+                        type:
+                            "doughnut",
+
+
+                        data: {
+
+                            labels:
+                                assetLabels,
+
+
+                            datasets: [{
+
+                                data:
+                                    assetValues,
+
+
+                                backgroundColor: [
+
+                                    "#2563eb",
+
+                                    "#22c55e",
+
+                                    "#64748b",
+
+                                    "#f59e0b",
+
+                                    "#7c3aed",
+
+                                    "#06b6d4",
+
+                                    "#ef4444"
+
+                                ],
+
+
+                                borderWidth:
+                                    2,
+
+
+                                borderColor:
+                                    "#ffffff"
+
+                            }]
+
+                        },
+
+
+                        options: {
+
+                            responsive:
+                                true,
+
+
+                            maintainAspectRatio:
+                                false,
+
+
+                            cutout:
+                                "58%",
+
+
+                            plugins: {
+
+                                legend: {
+
+                                    position:
+                                        "top",
+
+
+                                    labels: {
+
+                                        boxWidth:
+                                            16,
+
+
+                                        font: {
+
+                                            size:
+                                                11
+
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                );
+
+
+            /*
+             * =============================
+             * MONTHLY INCIDENT CHART
+             * =============================
+             */
+
+
+            const monthNames = [
+
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+
+            ];
+
+
+            const incidentCountsByMonth =
+                new Array(12).fill(0);
+
+
+            incidents.forEach(
+                incident => {
+
+                    if (!incident.reportedDate) {
+                        return;
+                    }
+
+
+                    const date =
+                        new Date(
+                            incident.reportedDate +
+                            "T00:00:00"
+                        );
+
+
+                    if (
+                        !Number.isNaN(
+                            date.getTime()
+                        )
+                    ) {
+
+                        const monthIndex =
+                            date.getMonth();
+
+
+                        incidentCountsByMonth[
+                            monthIndex
+                        ]++;
+
+                    }
+
+                }
+            );
+
+
+            if (incidentChartInstance) {
+
+                incidentChartInstance.destroy();
+
+            }
+
+
+            incidentChartInstance =
+                new Chart(
+
+                    document.getElementById(
+                        "incidentChart"
+                    ),
+
+                    {
+
+                        type:
+                            "line",
+
+
+                        data: {
+
+                            labels:
+                                monthNames,
+
+
+                            datasets: [{
+
+                                label:
+                                    "Security Incidents",
+
+
+                                data:
+                                    incidentCountsByMonth,
+
+
+                                borderColor:
+                                    "#2563eb",
+
+
+                                backgroundColor:
+                                    "#2563eb",
+
+
+                                tension:
+                                    0.35,
+
+
+                                borderWidth:
+                                    2.5,
+
+
+                                pointRadius:
+                                    3,
+
+
+                                pointHoverRadius:
+                                    5
+
+                            }]
+
+                        },
+
+
+                        options: {
+
+                            responsive:
+                                true,
+
+
+                            maintainAspectRatio:
+                                false,
+
+
+                            plugins: {
+
+                                legend: {
+                                    display: false
+                                }
+
+                            },
+
+
+                            scales: {
+
+                                y: {
+
+                                    beginAtZero:
+                                        true,
+
+
+                                    ticks: {
+
+                                        precision:
+                                            0,
+
+
+                                        stepSize:
+                                            1
+
+                                    },
+
+
+                                    grid: {
+
+                                        color:
+                                            "#e5e7eb"
+
+                                    }
+
+                                },
+
+
+                                x: {
+
+                                    grid: {
+                                        display: false
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Dashboard data error:",
+                error
+            );
+
+
+            document
+                .getElementById("employeeCount")
+                .textContent =
+                "—";
+
+
+            document
+                .getElementById("assetCount")
+                .textContent =
+                "—";
+
+
+            document
+                .getElementById("licenseCount")
+                .textContent =
+                "—";
+
+
+            document
+                .getElementById("incidentCount")
+                .textContent =
+                "—";
+
+        }
+
+    }
+
+
+    loadDashboardData();
+
+</script>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+<script src="../js/auth.js"></script>
 
 </body>
 

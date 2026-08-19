@@ -1,0 +1,34 @@
+[
+  {
+    "departmentId": 101,
+    "departmentName": "IT",
+    "manager": "John Smith",
+    "location": "Montreal Office",
+    "employeeCount": 1,
+    "status": "Active"
+  },
+  {
+    "departmentId": 102,
+    "departmentName": "Human Resources",
+    "manager": "Sarah Johnson",
+    "location": "Montreal Office",
+    "employeeCount": 1,
+    "status": "Active"
+  },
+  {
+    "departmentId": 103,
+    "departmentName": "Finance",
+    "manager": "Michael Brown",
+    "location": "Montreal Office",
+    "employeeCount": 1,
+    "status": "Active"
+  },
+  {
+    "departmentId": 104,
+    "departmentName": "Operations",
+    "manager": "Emily Davis",
+    "location": "Brossard Office",
+    "employeeCount": 0,
+    "status": "Active"
+  }
+]

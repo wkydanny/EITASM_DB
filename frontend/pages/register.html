@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EITASM Register</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+        <div class="container">
+
+            <a class="navbar-brand fw-bold" href="../index.html">
+                EITASM
+            </a>
+
+            <div class="navbar-nav ms-auto">
+
+                <a class="nav-link" href="login.html">
+                    Login
+                </a>
+
+                <a class="nav-link active" href="register.html">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <main class="container py-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-8 col-lg-6">
+
+                <div class="card shadow-sm border-0">
+
+                    <div class="card-body p-4 p-md-5">
+
+                        <div class="text-center mb-4">
+
+                            <h1 class="h3 mb-2">
+                                Create Account
+                            </h1>
+
+                            <p class="text-muted mb-0">
+                                Register for access to the EITASM system.
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            id="registerSuccess"
+                            class="alert alert-success d-none"
+                            role="alert">
+                        </div>
+
+
+                        <div
+                            id="registerError"
+                            class="alert alert-danger d-none"
+                            role="alert">
+                        </div>
+
+
+                        <form id="registerForm" novalidate>
+
+
+                            <!-- First Name -->
+
+                            <div class="mb-3">
+
+                                <label
+                                    for="firstName"
+                                    class="form-label"
+                                >
+                                    First Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="firstName"
+                                    minlength="2"
+                                    placeholder="Enter first name"
+                                    required
+                                >
+
+                                <div class="invalid-feedback">
+                                    Please enter your first name.
+                                </div>
+
+                            </div>
+
+
+                            <!-- Last Name -->
+
+                            <div class="mb-3">
+
+                                <label
+                                    for="lastName"
+                                    class="form-label"
+                                >
+                                    Last Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="lastName"
+                                    minlength="2"
+                                    placeholder="Enter last name"
+                                    required
+                                >
+
+                                <div class="invalid-feedback">
+                                    Please enter your last name.
+                                </div>
+
+                            </div>
+
+
+                            <!-- Email -->
+
+                            <div class="mb-3">
+
+                                <label
+                                    for="email"
+                                    class="form-label"
+                                >
+                                    Email Address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="email"
+                                    placeholder="name@example.com"
+                                    required
+                                >
+
+                                <div class="invalid-feedback">
+                                    Please enter a valid email address.
+                                </div>
+
+                            </div>
+
+
+                            <!-- Password -->
+
+                            <div class="mb-3">
+
+                                <label
+                                    for="password"
+                                    class="form-label"
+                                >
+                                    Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="password"
+                                    minlength="8"
+                                    placeholder="Enter password"
+                                    required
+                                >
+
+                                <div class="form-text">
+                                    Password must be at least 8 characters and contain uppercase, lowercase and a number.
+                                </div>
+
+                                <div class="invalid-feedback">
+                                    Please enter a valid password.
+                                </div>
+
+                            </div>
+
+
+                            <!-- Confirm Password -->
+
+                            <div class="mb-4">
+
+                                <label
+                                    for="confirmPassword"
+                                    class="form-label"
+                                >
+                                    Confirm Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="confirmPassword"
+                                    placeholder="Re-enter password"
+                                    required
+                                >
+
+                                <div class="invalid-feedback">
+                                    Passwords must match.
+                                </div>
+
+                            </div>
+
+
+                            <!-- Terms -->
+
+                            <div class="form-check mb-4">
+
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="terms"
+                                    required
+                                >
+
+                                <label
+                                    class="form-check-label"
+                                    for="terms"
+                                >
+                                    I agree to the system terms and policies.
+                                </label>
+
+                                <div class="invalid-feedback">
+                                    You must agree before registering.
+                                </div>
+
+                            </div>
+
+
+                            <!-- Submit -->
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary w-100"
+                            >
+                                Create Account
+                            </button>
+
+
+                            <div class="text-center mt-4">
+
+                                <span class="text-muted">
+                                    Already have an account?
+                                </span>
+
+                                <a
+                                    href="login.html"
+                                    class="text-decoration-none"
+                                >
+                                    Sign In
+                                </a>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const registerForm =
+            document.getElementById("registerForm");
+
+        const firstName =
+            document.getElementById("firstName");
+
+        const lastName =
+            document.getElementById("lastName");
+
+        const email =
+            document.getElementById("email");
+
+        const password =
+            document.getElementById("password");
+
+        const confirmPassword =
+            document.getElementById("confirmPassword");
+
+        const registerSuccess =
+            document.getElementById("registerSuccess");
+
+        const registerError =
+            document.getElementById("registerError");
+
+
+        registerForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+                registerSuccess.classList.add("d-none");
+                registerError.classList.add("d-none");
+
+
+                /*
+                 * Basic HTML validation
+                 */
+
+                if (!registerForm.checkValidity()) {
+
+                    registerForm.classList.add(
+                        "was-validated"
+                    );
+
+                    return;
+                }
+
+
+                /*
+                 * Stronger password rule
+                 */
+
+                const passwordPattern =
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+
+                if (
+                    !passwordPattern.test(
+                        password.value
+                    )
+                ) {
+
+                    registerError.textContent =
+                        "Password must contain at least 8 characters, including uppercase, lowercase and a number.";
+
+                    registerError.classList.remove(
+                        "d-none"
+                    );
+
+                    return;
+                }
+
+
+                /*
+                 * Password confirmation
+                 */
+
+                if (
+                    password.value !==
+                    confirmPassword.value
+                ) {
+
+                    confirmPassword.setCustomValidity(
+                        "Passwords do not match."
+                    );
+
+                    registerForm.classList.add(
+                        "was-validated"
+                    );
+
+                    registerError.textContent =
+                        "Passwords do not match.";
+
+                    registerError.classList.remove(
+                        "d-none"
+                    );
+
+                    return;
+                }
+
+
+                confirmPassword.setCustomValidity("");
+
+
+                /*
+                 * Check whether user already exists
+                 */
+
+                const existingUsers =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "eitasmUsers"
+                        )
+                    ) || [];
+
+
+                const existingUser =
+                    existingUsers.find(
+                        user =>
+                            user.email.toLowerCase() ===
+                            email.value
+                                .trim()
+                                .toLowerCase()
+                    );
+
+
+                if (existingUser) {
+
+                    registerError.textContent =
+                        "An account with this email already exists.";
+
+                    registerError.classList.remove(
+                        "d-none"
+                    );
+
+                    return;
+                }
+
+
+                /*
+                 * Create demo user
+                 */
+
+                const newUser = {
+
+                    firstName:
+                        firstName.value.trim(),
+
+                    lastName:
+                        lastName.value.trim(),
+
+                    email:
+                        email.value
+                            .trim()
+                            .toLowerCase(),
+
+                    password:
+                        password.value
+
+                };
+
+
+                existingUsers.push(newUser);
+
+
+                localStorage.setItem(
+                    "eitasmUsers",
+                    JSON.stringify(
+                        existingUsers
+                    )
+                );
+
+
+                registerSuccess.textContent =
+                    "Account created successfully. Redirecting to login...";
+
+                registerSuccess.classList.remove(
+                    "d-none"
+                );
+
+
+                registerForm.reset();
+
+                registerForm.classList.remove(
+                    "was-validated"
+                );
+
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "login.html";
+
+                    },
+                    1500
+                );
+
+            }
+        );
+
+
+        /*
+         * Remove mismatch error
+         * when user starts typing again
+         */
+
+        confirmPassword.addEventListener(
+            "input",
+            function () {
+
+                confirmPassword.setCustomValidity("");
+
+            }
+        );
+
+    </script>
+
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

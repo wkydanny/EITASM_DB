@@ -1,0 +1,47 @@
+[
+    {
+        "logId": 6001,
+        "user": "Danny",
+        "action": "Employee Updated",
+        "details": "Updated employee profile for Sarah Johnson",
+        "date": "2026-08-18",
+        "time": "10:02 AM",
+        "status": "Success"
+    },
+    {
+        "logId": 6002,
+        "user": "Danny",
+        "action": "Asset Added",
+        "details": "Added HP LaserJet Pro M404dn",
+        "date": "2026-08-18",
+        "time": "10:15 AM",
+        "status": "Success"
+    },
+    {
+        "logId": 6003,
+        "user": "John Smith",
+        "action": "License Assigned",
+        "details": "Microsoft 365 Business Standard assigned",
+        "date": "2026-08-18",
+        "time": "10:32 AM",
+        "status": "Success"
+    },
+    {
+        "logId": 6004,
+        "user": "Sarah Johnson",
+        "action": "Security Incident Reported",
+        "details": "Reported suspicious login attempt",
+        "date": "2026-08-18",
+        "time": "11:05 AM",
+        "status": "Warning"
+    },
+    {
+        "logId": 6005,
+        "user": "Danny",
+        "action": "Login Attempt",
+        "details": "Failed administrator login attempt",
+        "date": "2026-08-18",
+        "time": "11:27 AM",
+        "status": "Failed"
+    }
+]

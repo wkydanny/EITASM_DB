@@ -1,0 +1,52 @@
+[
+  {
+    "licenseId": 3001,
+    "softwareName": "Microsoft 365 Business Standard",
+    "vendor": "Microsoft",
+    "licenseType": "Subscription",
+    "totalSeats": 120,
+    "usedSeats": 98,
+    "status": "Active",
+    "expiryDate": "2027-05-31"
+  },
+  {
+    "licenseId": 3002,
+    "softwareName": "Adobe Creative Cloud",
+    "vendor": "Adobe",
+    "licenseType": "Subscription",
+    "totalSeats": 35,
+    "usedSeats": 29,
+    "status": "Active",
+    "expiryDate": "2027-02-15"
+  },
+  {
+    "licenseId": 3003,
+    "softwareName": "Windows Server 2025",
+    "vendor": "Microsoft",
+    "licenseType": "Perpetual",
+    "totalSeats": 20,
+    "usedSeats": 16,
+    "status": "Active",
+    "expiryDate": "N/A"
+  },
+  {
+    "licenseId": 3004,
+    "softwareName": "Cisco Secure Endpoint",
+    "vendor": "Cisco",
+    "licenseType": "Subscription",
+    "totalSeats": 250,
+    "usedSeats": 243,
+    "status": "Expiring Soon",
+    "expiryDate": "2026-09-30"
+  },
+  {
+    "licenseId": 3005,
+    "softwareName": "JetBrains All Products Pack",
+    "vendor": "JetBrains",
+    "licenseType": "Subscription",
+    "totalSeats": 25,
+    "usedSeats": 18,
+    "status": "Active",
+    "expiryDate": "2027-01-20"
+  }
+]

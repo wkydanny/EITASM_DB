@@ -1,0 +1,47 @@
+[
+  {
+    "assetId": 2001,
+    "assetName": "Dell Latitude 5420",
+    "assetType": "Laptop",
+    "serialNumber": "DL5420-001",
+    "status": "Assigned",
+    "assignedTo": "John Smith",
+    "department": "IT"
+  },
+  {
+    "assetId": 2002,
+    "assetName": "HP LaserJet Pro M404dn",
+    "assetType": "Printer",
+    "serialNumber": "HP-M404-002",
+    "status": "Available",
+    "assignedTo": "Unassigned",
+    "department": "Operations"
+  },
+  {
+    "assetId": 2003,
+    "assetName": "Cisco Catalyst 9200",
+    "assetType": "Network",
+    "serialNumber": "CS9200-003",
+    "status": "Assigned",
+    "assignedTo": "Network Team",
+    "department": "IT"
+  },
+  {
+    "assetId": 2004,
+    "assetName": "Lenovo ThinkCentre M90",
+    "assetType": "Desktop",
+    "serialNumber": "LN-M90-004",
+    "status": "Maintenance",
+    "assignedTo": "Sarah Johnson",
+    "department": "Human Resources"
+  },
+  {
+    "assetId": 2005,
+    "assetName": "Dell PowerEdge R750",
+    "assetType": "Server",
+    "serialNumber": "DP-R750-005",
+    "status": "Active",
+    "assignedTo": "Infrastructure Team",
+    "department": "IT"
+  }
+]

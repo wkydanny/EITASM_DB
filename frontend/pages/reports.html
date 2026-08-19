@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EITASM Reports</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="d-flex align-items-center gap-2">
+
+                <div class="logo-mark">
+                    <i class="bi bi-boxes"></i>
+                </div>
+
+                <div>
+                    <h2>EITASM</h2>
+                    <p>IT Asset Management</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="employees.html">
+                <i class="bi bi-people"></i>
+                <span>Employees</span>
+            </a>
+
+            <a href="departments.html">
+                <i class="bi bi-building"></i>
+                <span>Departments</span>
+            </a>
+
+            <a href="assets.html">
+                <i class="bi bi-pc-display"></i>
+                <span>Hardware Assets</span>
+            </a>
+
+            <a href="asset-types.html">
+                <i class="bi bi-box-seam"></i>
+                <span>Asset Types</span>
+            </a>
+
+            <a href="licenses.html">
+                <i class="bi bi-key"></i>
+                <span>Software Licenses</span>
+            </a>
+
+            <a href="license-assignments.html">
+                <i class="bi bi-file-earmark-lock"></i>
+                <span>License Assignments</span>
+            </a>
+
+            <a href="incidents.html">
+                <i class="bi bi-shield-exclamation"></i>
+                <span>Security Incidents</span>
+            </a>
+
+            <a href="audit-logs.html">
+                <i class="bi bi-journal-text"></i>
+                <span>Audit Logs</span>
+            </a>
+
+            <a href="reports.html" class="active">
+                <i class="bi bi-bar-chart"></i>
+                <span>Reports</span>
+            </a>
+
+            <a href="#">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-user">
+            <strong>Danny</strong>
+            <span>Administrator</span>
+        </div>
+
+    </aside>
+
+
+    <main class="dashboard-main">
+
+        <header class="dashboard-topbar">
+
+            <button class="menu-button">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="search-box">
+                <input
+                    type="text"
+                    placeholder="Search anything..."
+                >
+            </div>
+
+            <div class="topbar-user">
+
+                <i class="bi bi-bell"></i>
+                <i class="bi bi-moon"></i>
+
+                <div>
+                    <strong>Danny</strong>
+                    <small>Administrator</small>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="welcome-section">
+
+            <div>
+                <h1>Reports</h1>
+
+                <p>
+                    Review key IT asset and security metrics.
+                </p>
+            </div>
+
+            <button
+                class="btn btn-primary"
+                onclick="window.print()"
+            >
+                <i class="bi bi-printer me-1"></i>
+                Print Report
+            </button>
+
+        </section>
+
+
+        <div class="px-4 pb-4">
+
+
+            <!-- KPI CARDS -->
+
+            <div class="stats-grid mb-4">
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon blue">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+
+                    <div>
+                        <span>Total Employees</span>
+                        <h2 id="reportEmployeeCount">0</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon green">
+                        <i class="bi bi-display"></i>
+                    </div>
+
+                    <div>
+                        <span>Total Assets</span>
+                        <h2 id="reportAssetCount">0</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon purple">
+                        <i class="bi bi-key-fill"></i>
+                    </div>
+
+                    <div>
+                        <span>Total Licenses</span>
+                        <h2 id="reportLicenseCount">0</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon red">
+                        <i class="bi bi-shield-fill-exclamation"></i>
+                    </div>
+
+                    <div>
+                        <span>Total Incidents</span>
+                        <h2 id="reportIncidentCount">0</h2>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CHARTS -->
+
+            <div class="charts-grid mb-4">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <h3>Assets by Type</h3>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="reportAssetsChart"></canvas>
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <h3>Incidents by Severity</h3>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="reportIncidentSeverityChart"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUMMARY TABLE -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+                    <h3>System Summary</h3>
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead>
+
+                            <tr>
+                                <th>Metric</th>
+                                <th>Value</th>
+                                <th>Details</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>Employees</td>
+                                <td id="summaryEmployees">0</td>
+                                <td>Registered employee records</td>
+                            </tr>
+
+                            <tr>
+                                <td>Assigned Assets</td>
+                                <td id="summaryAssignedAssets">0</td>
+                                <td>Hardware currently assigned or in use</td>
+                            </tr>
+
+                            <tr>
+                                <td>Available Assets</td>
+                                <td id="summaryAvailableAssets">0</td>
+                                <td>Hardware available for assignment</td>
+                            </tr>
+
+                            <tr>
+                                <td>Used License Seats</td>
+                                <td id="summaryUsedLicenses">0</td>
+                                <td>Total used seats across all licenses</td>
+                            </tr>
+
+                            <tr>
+                                <td>Open Security Incidents</td>
+                                <td id="summaryOpenIncidents">0</td>
+                                <td>Incidents requiring attention</td>
+                            </tr>
+
+                            <tr>
+                                <td>Critical / High Incidents</td>
+                                <td id="summaryCriticalIncidents">0</td>
+                                <td>Higher priority security incidents</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    async function loadReports() {
+
+        try {
+
+            const responses = await Promise.all([
+
+                fetch("../data/employees.json"),
+
+                fetch("../data/assets.json"),
+
+                fetch("../data/licenses.json"),
+
+                fetch("../data/incidents.json")
+
+            ]);
+
+
+            responses.forEach(response => {
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Unable to load report data."
+                    );
+                }
+
+            });
+
+
+            const employees =
+                await responses[0].json();
+
+            const assets =
+                await responses[1].json();
+
+            const licenses =
+                await responses[2].json();
+
+            const incidents =
+                await responses[3].json();
+
+
+            /*
+             * KPI COUNTS
+             */
+
+            document
+                .getElementById("reportEmployeeCount")
+                .textContent =
+                employees.length;
+
+
+            document
+                .getElementById("reportAssetCount")
+                .textContent =
+                assets.length;
+
+
+            document
+                .getElementById("reportLicenseCount")
+                .textContent =
+                licenses.length;
+
+
+            document
+                .getElementById("reportIncidentCount")
+                .textContent =
+                incidents.length;
+
+
+            /*
+             * SUMMARY METRICS
+             */
+
+            const assignedAssets =
+                assets.filter(asset => {
+
+                    return (
+
+                        asset.status === "Assigned"
+
+                        ||
+
+                        (
+                            asset.assignedTo &&
+                            asset.assignedTo !== "Unassigned"
+                        )
+
+                    );
+
+                });
+
+
+            const availableAssets =
+                assets.filter(asset => {
+
+                    return asset.status === "Available";
+
+                });
+
+
+            const usedLicenses =
+                licenses.reduce(
+
+                    (total, license) => {
+
+                        return total +
+                            Number(
+                                license.usedSeats || 0
+                            );
+
+                    },
+
+                    0
+
+                );
+
+
+            const openIncidents =
+                incidents.filter(incident => {
+
+                    return (
+
+                        incident.status === "Open"
+
+                        ||
+
+                        incident.status === "In Progress"
+
+                        ||
+
+                        incident.status === "Investigating"
+
+                    );
+
+                });
+
+
+            const highPriorityIncidents =
+                incidents.filter(incident => {
+
+                    return (
+
+                        incident.severity === "Critical"
+
+                        ||
+
+                        incident.severity === "High"
+
+                    );
+
+                });
+
+
+            document
+                .getElementById("summaryEmployees")
+                .textContent =
+                employees.length;
+
+
+            document
+                .getElementById("summaryAssignedAssets")
+                .textContent =
+                assignedAssets.length;
+
+
+            document
+                .getElementById("summaryAvailableAssets")
+                .textContent =
+                availableAssets.length;
+
+
+            document
+                .getElementById("summaryUsedLicenses")
+                .textContent =
+                usedLicenses;
+
+
+            document
+                .getElementById("summaryOpenIncidents")
+                .textContent =
+                openIncidents.length;
+
+
+            document
+                .getElementById("summaryCriticalIncidents")
+                .textContent =
+                highPriorityIncidents.length;
+
+
+            /*
+             * ASSET TYPE CHART
+             */
+
+            const assetTypes = {};
+
+
+            assets.forEach(asset => {
+
+                const type =
+                    asset.assetType || "Other";
+
+
+                assetTypes[type] =
+                    (assetTypes[type] || 0) + 1;
+
+            });
+
+
+            new Chart(
+
+                document.getElementById(
+                    "reportAssetsChart"
+                ),
+
+                {
+
+                    type: "doughnut",
+
+                    data: {
+
+                        labels:
+                            Object.keys(assetTypes),
+
+                        datasets: [{
+
+                            data:
+                                Object.values(assetTypes),
+
+                            backgroundColor: [
+                                "#2563eb",
+                                "#22c55e",
+                                "#64748b",
+                                "#f59e0b",
+                                "#7c3aed",
+                                "#06b6d4"
+                            ]
+
+                        }]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        cutout: "58%"
+
+                    }
+
+                }
+
+            );
+
+
+            /*
+             * INCIDENT SEVERITY CHART
+             */
+
+            const severityCounts = {
+
+                Critical: 0,
+                High: 0,
+                Medium: 0,
+                Low: 0
+
+            };
+
+
+            incidents.forEach(incident => {
+
+                if (
+                    severityCounts[
+                        incident.severity
+                    ] !== undefined
+                ) {
+
+                    severityCounts[
+                        incident.severity
+                    ]++;
+
+                }
+
+            });
+
+
+            new Chart(
+
+                document.getElementById(
+                    "reportIncidentSeverityChart"
+                ),
+
+                {
+
+                    type: "bar",
+
+                    data: {
+
+                        labels: [
+                            "Critical",
+                            "High",
+                            "Medium",
+                            "Low"
+                        ],
+
+                        datasets: [{
+
+                            label:
+                                "Security Incidents",
+
+                            data: [
+                                severityCounts.Critical,
+                                severityCounts.High,
+                                severityCounts.Medium,
+                                severityCounts.Low
+                            ]
+
+                        }]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        plugins: {
+
+                            legend: {
+                                display: false
+                            }
+
+                        },
+
+                        scales: {
+
+                            y: {
+
+                                beginAtZero: true,
+
+                                ticks: {
+                                    precision: 0,
+                                    stepSize: 1
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Report error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    loadReports();
+
+</script>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+<script src="../js/auth.js"></script>
+
+</body>
+
+</html>
