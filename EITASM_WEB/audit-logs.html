@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>EITASM | Audit Logs</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+
+                <img
+                    src="images/logo.svg"
+                    class="logo-image"
+                    alt="EITASM Logo"
+                >
+
+                <div>
+                    <h1 class="logo-title">EITASM</h1>
+                    <p class="logo-subtitle">Management System</p>
+                </div>
+
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a href="index.html" class="nav-item">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="employees.html" class="nav-item">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Employees</span>
+                </a>
+
+                <a href="departments.html" class="nav-item">
+                    <i class="bi bi-building"></i>
+                    <span>Departments</span>
+                </a>
+
+                <a href="assets.html" class="nav-item">
+                    <i class="bi bi-pc-display"></i>
+                    <span>Hardware Assets</span>
+                </a>
+
+                <a href="licenses.html" class="nav-item">
+                    <i class="bi bi-key-fill"></i>
+                    <span>Software Licenses</span>
+                </a>
+
+                <a href="incidents.html" class="nav-item">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span>Security Incidents</span>
+                </a>
+
+                <a href="audit-logs.html" class="nav-item active">
+                    <i class="bi bi-clipboard-data-fill"></i>
+                    <span>Audit Logs</span>
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+
+                <a href="profile.html" class="nav-item">
+                    <i class="bi bi-person-circle"></i>
+                    <span>My Profile</span>
+                </a>
+
+                <a href="login.html" class="nav-item">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Logout</span>
+                </a>
+
+            </div>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Top Navbar -->
+            <header class="top-navbar">
+
+                <button
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    type="button"
+                    aria-label="Open menu"
+                >
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <div class="search-box">
+
+                    <i class="bi bi-search"></i>
+
+                    <input
+                        type="search"
+                        placeholder="Search audit activity..."
+                    >
+
+                </div>
+
+                <div class="navbar-actions">
+
+                    <button
+                        class="notification-button"
+                        type="button"
+                        aria-label="Notifications"
+                    >
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+
+                    <div class="user-profile">
+
+                        <div class="user-avatar">
+                            DO
+                        </div>
+
+                        <div class="user-information">
+                            <span class="user-name">Danny Ornelas</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+
+                        <i class="bi bi-chevron-down"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- Audit Logs Content -->
+            <section class="dashboard-content">
+
+                <div class="page-heading">
+
+                    <div>
+                        <p class="page-eyebrow">SYSTEM MONITORING</p>
+                        <h2>Audit Logs</h2>
+
+                        <p class="page-description">
+                            Review user activity, system changes and security-related events.
+                        </p>
+                    </div>
+
+                    <button
+                        class="btn btn-outline-secondary action-button"
+                        type="button"
+                    >
+                        <i class="bi bi-download"></i>
+                        Export Logs
+                    </button>
+
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="row g-4 mb-4">
+
+                    <div class="col-12 col-sm-6 col-xl-3">
+
+                        <article class="summary-card">
+
+                            <div class="summary-icon employees-icon">
+                                <i class="bi bi-activity"></i>
+                            </div>
+
+                            <div class="summary-content">
+                                <p>Events Today</p>
+                                <h3>148</h3>
+                                <span>Across all system areas</span>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-3">
+
+                        <article class="summary-card">
+
+                            <div class="summary-icon assets-icon">
+                                <i class="bi bi-pencil-square"></i>
+                            </div>
+
+                            <div class="summary-content">
+                                <p>Record Updates</p>
+                                <h3>63</h3>
+                                <span>Employees, assets and licenses</span>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-3">
+
+                        <article class="summary-card">
+
+                            <div class="summary-icon licenses-icon">
+                                <i class="bi bi-box-arrow-in-right"></i>
+                            </div>
+
+                            <div class="summary-content">
+                                <p>Successful Logins</p>
+                                <h3>79</h3>
+                                <span class="positive-change">No unusual activity</span>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-3">
+
+                        <article class="summary-card">
+
+                            <div class="summary-icon incidents-icon">
+                                <i class="bi bi-shield-exclamation"></i>
+                            </div>
+
+                            <div class="summary-content">
+                                <p>Security Alerts</p>
+                                <h3>6</h3>
+                                <span class="danger-change">Requires review</span>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+                <!-- Audit Logs Table -->
+                <article class="content-card">
+
+                    <div class="content-card-header">
+
+                        <div>
+                            <h3>System Activity</h3>
+                            <p>Chronological record of important activity across EITASM.</p>
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button
+                                class="btn btn-outline-secondary btn-sm"
+                                type="button"
+                            >
+                                <i class="bi bi-funnel"></i>
+                                Filter
+                            </button>
+
+                            <button
+                                class="btn btn-outline-secondary btn-sm"
+                                type="button"
+                            >
+                                <i class="bi bi-calendar3"></i>
+                                Date Range
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table class="table dashboard-table align-middle">
+
+                            <thead>
+
+                                <tr>
+                                    <th>Date &amp; Time</th>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                    <th>Area</th>
+                                    <th>Record ID</th>
+                                    <th>Details</th>
+                                    <th>Result</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Aug 4, 2026<br><span class="employee-id">09:42 AM</span></td>
+                                    <td>John Doe</td>
+
+                                    <td>
+                                        <span class="badge text-bg-primary">
+                                            Update
+                                        </span>
+                                    </td>
+
+                                    <td>Hardware Assets</td>
+                                    <td>LT-2045</td>
+                                    <td>Changed asset status from Available to Assigned.</td>
+
+                                    <td>
+                                        <span class="status-indicator status-resolved">
+                                            Success
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Aug 4, 2026<br><span class="employee-id">09:18 AM</span></td>
+                                    <td>Emma Johnson</td>
+
+                                    <td>
+                                        <span class="badge text-bg-success">
+                                            Create
+                                        </span>
+                                    </td>
+
+                                    <td>Employees</td>
+                                    <td>EMP-1011</td>
+                                    <td>Created a new employee profile.</td>
+
+                                    <td>
+                                        <span class="status-indicator status-resolved">
+                                            Success
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Aug 4, 2026<br><span class="employee-id">08:57 AM</span></td>
+                                    <td>Michael Brown</td>
+
+                                    <td>
+                                        <span class="badge text-bg-warning">
+                                            Investigate
+                                        </span>
+                                    </td>
+
+                                    <td>Security Incidents</td>
+                                    <td>INC-2026-001</td>
+                                    <td>Assigned incident for malware analysis.</td>
+
+                                    <td>
+                                        <span class="status-indicator status-investigating">
+                                            Pending
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Aug 4, 2026<br><span class="employee-id">08:45 AM</span></td>
+                                    <td>Danny Ornelas</td>
+
+                                    <td>
+                                        <span class="badge text-bg-secondary">
+                                            Login
+                                        </span>
+                                    </td>
+
+                                    <td>Authentication</td>
+                                    <td>USR-0001</td>
+                                    <td>Administrator signed in from the web portal.</td>
+
+                                    <td>
+                                        <span class="status-indicator status-resolved">
+                                            Success
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Aug 4, 2026<br><span class="employee-id">08:32 AM</span></td>
+                                    <td>System</td>
+
+                                    <td>
+                                        <span class="badge text-bg-danger">
+                                            Alert
+                                        </span>
+                                    </td>
+
+                                    <td>Security</td>
+                                    <td>SEC-0092</td>
+                                    <td>Multiple failed login attempts detected.</td>
+
+                                    <td>
+                                        <span class="status-indicator status-open">
+                                            Review
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Aug 3, 2026<br><span class="employee-id">04:26 PM</span></td>
+                                    <td>Sophia Davis</td>
+
+                                    <td>
+                                        <span class="badge text-bg-primary">
+                                            Update
+                                        </span>
+                                    </td>
+
+                                    <td>Software Licenses</td>
+                                    <td>LIC-1002</td>
+                                    <td>Updated Adobe Creative Cloud expiration date.</td>
+
+                                    <td>
+                                        <span class="status-indicator status-resolved">
+                                            Success
+                                        </span>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+
+                        <p class="employee-table-info mb-0">
+                            Showing 1 to 6 of 148 events
+                        </p>
+
+                        <nav aria-label="Audit log table pagination">
+
+                            <ul class="pagination pagination-sm mb-0">
+
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Previous</a>
+                                </li>
+
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+
+                            </ul>
+
+                        </nav>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
